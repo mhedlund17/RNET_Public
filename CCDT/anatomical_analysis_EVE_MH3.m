@@ -11,120 +11,29 @@
 clear all
 
 % load requisite files
-% load CCDTnodeAnalyze_PLV_100z_MH.mat
-% load CCDTnodeAnalyze_PLV_100_orig_MH.mat
-% load CCDTnodeAnalyze_pBP_qCAR_MH.mat
-% load CCDTnodeAnalyze_PLV_100_pCAR_qCAR_MH.mat
-% load CCDTnodeAnalyze_PLV_100_pBP_qCAR_MH.mat 
+% loads fPv, sPv, fIDp, ssIDp, gchP (and equivalents for Q)
+% fPv --> mean z-scored value of selected power features over all fast trials
+% fIDp --> fband of each selected power feature
+% ssIDp --> subject/session number of selected power feature
+% s --> corresponding values for slow trials
+% q --> same variable meanings, but for qexp features
+nadir = ''; %node analyze directory
+nafname = ''; %node analyze file
+load([nadir nafname])
+percThresh = 0.30; %feature selection threshold
 
-% load CCDTnodeAnalyze_PLV_80_pCAR_qCAR_noZ40_MH.mat
-% load CCDTnodeAnalyze_PLV_100_MH.mat
-% load CCDTnodeAnalyze_PLV_80_MH.mat
-% load CCDTnodeAnalyze_PLI_80_pBP_qCAR_noZ30_MH.mat
-% load CCDTnodeAnalyze_PLI_100_pBP_qCAR_noZ_MH.mat
-% load CCDTnodeAnalyze_PLV_100_pBP_qCAR_intra_MH.mat
-% load CCDTnodeAnalyze_PLV_100_pCAR_qCAR_intra_MH.mat
+% feature data info
+pdir = ''; % feature directory
+pfname = ''; % power feature file name
+gfname = ''; % graph communicability feature file name
 
-% load CCDTnodeAnalyze_PLV_80_pBP_qCAR_noZ35_MH.mat  %was the main file before remaking power data - pfname = 'powRT_071023_Bipolar_BR_zAll';
-% load CCDTnodeAnalyze_PLV_80_pBP_qCAR_pre35_101523.mat %used new permutations of training data
-% load CCDTnodeAnalyze_PLV_80_pBP_qCAR_pre35_102323.mat %used original permutations of training data (use this one)
-% load CCDTnodeAnalyze_PLV_80_pBP_qCAR_pre55_103123.mat %10-55 pretrial threshold heatmaps
-% load CCDTnodeAnalyze_PLV_80_pBP_qCAR_pre95_121523.mat %0, 5, 60-95 pretrial threshold heatmaps
-% load CCDTnodeAnalyze_PLV_80_pBP_qCAR_null30_110123.mat 
-% load CCDTnodeAnalyze_PLV_80_pBP_qCAR_intra30_102523.mat 
-% load CCDTnodeAnalyze_PLV_80_pBP_qCAR_intra35_120323.mat %use for intratrial
-% load CCDTnodeAnalyze_PLV_80_pBP_qCAR_intra100_020624.mat % intratrial threshold heatmaps
-% load CCDTnodeAnalyze_PLV_80_pBP_qCAR_null40_102523.mat %circular shift time series
-% load CCDTnodeAnalyze_PLV_80_pCAR_qCAR_pre40_hg70110_031324 %diff hg range pretrial
-% load CCDTnodeAnalyze_PLV_80_pCAR_qCAR_hg70-110_intra40_050624 %diff hg range pretrial
-% load CCDTnodeAnalyze_PLV_80_pCAR_plvCAR_hg70110_30_031125 % pre old scripts - plv
-load CCDTnodeAnalyze_PLV_80_pCAR_qCAR_hg70110_30_040425 % pre old scripts
-% load CCDTnodeAnalyze_PLV_80_pCAR_qCAR_hg70110_30_090924 % pre old scripts
-% load CCDTnodeAnalyze_PLV_80_pCAR_qCAR_hg70110_intra_30_090924 % intra old scripts
-% load CCDTnodeAnalyze_PLV_100_pCAR_qCAR_hg70110_090924.mat % pre old scripts 100
-% load CCDTnodeAnalyze_PLV_100_pCAR_qCAR_hg70110_intra_090924.mat % intra old scripts 100
-
-% load CCDTnodeAnalyze_PLV_100_pCAR_qCAR_pre_hg70110
-% load CCDTnodeAnalyze_PLV_100_pCAR_qCAR_intra_hg70110
-% load CCDTnodeAnalyze_PLV_100_pCAR_qCAR_pre_hg70150_fallData
-% load CCDTnodeAnalyze_PLV_100_pBP_qCAR_sIall_500mspre_origdat.mat %vivek data
-% load CCDTnodeAnalyze_PLV_100_pBP_qCAR_090224.mat %reverted changes, new scripts
-% load CCDTnodeAnalyze_PLV_100_pBP_qCAR_090324.mat %old scripts
-% load CCDTnodeAnalyze_PLV_100_pCAR_qCAR_090324_hg70110.mat %old scripts
-
-percThresh = 0.30;
-
-
-% load CCDTnodeAnalyze_PLV_80_pBP_qCAR_intra35_MH.mat
-% load CCDTnodeAnalyze_PLV_80_pCAR_qCAR_intra40_MH.mat
-
-% load CCDTnodeAnalyze.mat % JB
-% % loads fPv, sPv, fIDp, ssIDp, gchP (and equivalents for Q)
-% % fPv --> mean z-scored value of selected power features over all fast trials
-% % fIDp --> fband of each selected power feature
-% % ssIDp --> subject/session number of selected power feature
-% % s --> corresponding values for slow trials
-% % q --> same variable meanings, but for qexp features
-% 
-% %load 500msdelayNodeAnalyze.mat
-% load all_regions_raw % i don't even think this gets used after this?
-% load patient_loc_oct9
-pdir = '/mnt/sdb1/CCDT/procData072023/';
-% pdir = '/mnt/sdb1/CCDT/CCDT Data/CCDT/procData/';
-% pdir = '/mnt/sdb1/CCDT/orig_procData/';
-% pfname = 'powRT_101123_Bipolar_zAll'; %use for main pretrial analysis
-% pfname = 'powRT_071023_Bipolar_BR_zAll';
-% pfname = 'powRT_082823_CAR_BR_zAll';
-% pfname = 'powRT_090923_BP_intra_MH_zAll';
-% pfname = 'powRT_103123_Bipolar_zAll_null2';
-% pfname = 'powRT_031324_CAR_hg70-110'; % diff hg range pre
-% pfname = 'powRT_050624_CAR_intra_hg70-110'; % diff hg range intra
-% pfname = 'powRT_sIall_500mspre';
-% pfname = 'powRT_090224_BP_hg70150_1';
-pfname = 'powRT_040425_CAR_hg70110';
-% pfname = 'powRT_090924_CAR_hg70110';
-% pfname = 'powRT_090924_CAR_intra_hg70110';
-
-% gfname = 'graphRTpli_083123_CAR_BR';
-% gfname = 'graphRT_071823_CAR_BR'; %use for main pretrial analysis
-% gfname = 'graphRT_090923_CAR_intra_MH';
-% gfname = 'graphRT_102423_CAR_intra';
-% gfname = 'graphRT_103123_CAR_null2';
-% gfname = 'graphRT_031024_CAR_hg70-110'; %diff hg range pre
-% gfname = 'graphRT_050624_CAR_intra_hg70-110'; %diff hg range intra
-% gfname = 'graphRT_sIall_500mspre';
-% gfname = 'graphRT_090224_CAR_pre_hg70150_1';
-% gfname = 'graphRT_031025_CAR_PLV_hg70110'; %plv
-gfname = 'graphRT_040425_CAR_hg70110';
-% gfname = 'graphRT_090324_CAR_hg70110';
-% gfname = 'graphRT_090324_CAR_intra_hg70110';
-
-use8020 = 1;
-if use8020
-    dir8020 = '/mnt/sdb1/CCDT/CCDTscripts/80-20 dat/';
-    % make sure correct variables are read in in section 6
-%     fname8020 = '80-20-dat-pBP-qCAR-noZ-nullRT-101923'; % use for pre-trial and shuffled RT null (load sigCom/sigPow for pretrial, sigComNRT/sigPowNRT for null)
-%     fname8020 = '80-20-dat-pBP-qCAR-intra-102423'; % use for intra-trial (load sigCom/sigPow)
-%     fname8020 = '80-20-dat-pBP-qCAR-noZ-nullData-102423'; % use for random circular shift null (load sigComNdat/sigpowNdat)
-%     fname8020 = '80-20-dat-pCAR-qCAR-hg70110-031324'; % diff hg range pretrial
-%     fname8020 = '80-20-dat-pCAR-plvCAR-hg70110-031025'; %plv
-    fname8020 = '80-20-dat-pCAR-qCAR-hg70110-040425';
-%     fname8020 = '80-20-dat-pCAR-qCAR-hg70110-090924';
-%     fname8020 = '80-20-dat-pCAR-qCAR-hg70110-intra-090924'; % diff hg range intratrial
-    avgAllIterations = 1; %0 averages only significant iterations
-end
+dir8020 = ''; %feature selection directory
+fname8020 = ''; %feature selection file name
 
 addAsterisk = 1;
 save_heatmap_data = 0;
-savedir = '/mnt/sdb1/CCDT/CCDTscripts/Figures/Heatmaps_Across_Thresholds/';
-% savefname = ['heatmap_data_prehg70110_pCAR_' threshnames{t} '.mat']; % pre 8020
-savefname = ['heatmap_data_prehg70110_pCAR_PLV_30.mat']; % pre 8020 plv
-% savefname = ['heatmap_data_pCAR_hg70-110_intra' threshnames{t} '.mat']; % intra 8020
-% savefname = ['heatmap_data_prehg70110_pCAR_100dat.mat']; % pre 100
-% savefname = ['heatmap_data_intrahg70110_pCAR_100dat.mat']; %intra 100
-% savefname = ['heatmap_data_prehg70110_pCAR_100datorig.mat']; %intra 100
-% savefname = ['heatmap_data_prehg70110_pCAR_100dat_092824.mat']; %pre 100
-% savefname = ['heatmap_data_intrahg70110_pCAR_100dat_092824.mat']; %pre 100
+savedir = ''; %output directory 
+savefname = ''; % output file name
 
 % get all ROI from EVE
 EVE_roi_csv = readtable('EVE_all_roi.csv');
@@ -138,29 +47,6 @@ session_list = {'HUP069','HUP133','HUP133','HUP136','HUP139','HUP140',...
                 'HUP171','HUP178','HUP179','HUP179','HUP181','HUP182',...
                 'HUP187','HUP191','HUP191'};
 
-% messed up MNI files patients 133 136 140,145 sessions 2,3,4,6,9
-
-% set colors to use            
-% color1 = [0, 0.4470, 0.7410]; % blue
-% color2 = [0.6350, 0.0780, 0.1840]; % red
-% color3 = [255, 248, 209]./255; 
-% color4 = [103 55 155]/255;
-% color6 = [78 172 91]/255;
-% color7 = [0.9290, 0.6940, 0.1250];
-% color8 = [0.8500, 0.3250, 0.0980]; % orange
-
-%matlab default colors
-c1 = [0 0.4470 0.7410]; %blue
-c2 = [0.8500 0.3250 0.0980]; %orange
-c3 = [0.9290 0.6940 0.1250]; %yellow
-c4 = [0.4940 0.1840 0.5560]; %purple
-c5 = [0.4660 0.6740 0.1880]; %light green
-c6 = [0.3010 0.7450 0.9330]; %light blue
-c7 = [0.6350 0.0780 0.1840]; %red
-c8 = [0.9333 0.2275 0.5490]; %pink 
-barcolors = [c1;c2;c3;c4;c5;c6;c7;c8];
-
-% wm_color = [0.584, 0.137, 0.788];
 gm_color_1 = [0.02, 0.62, 0.584]; %teal
 gm_color_2 = [0.173, 0.839, 0.796];
 gm_color_3 = [0.486, 0.98, 0.949];
@@ -171,44 +57,10 @@ wm_color_4 = [0.855, 0.545, 1];
 wm_color_5 = [0.937, 0.804, 1];
 wm_color_6 = [0.973, 0.91, 1];
 
-% barcolors = [gm_color_1;gm_color_1;gm_color_1;wm_color_2;wm_color_2;wm_color_2;wm_color_2;wm_color_2]; %gm/wm each one color
 barcolors = [gm_color_1;gm_color_2;gm_color_3;wm_color_2;wm_color_3;wm_color_4;wm_color_5;wm_color_6]; %gm/wm each diff shades of same color
 
-
 db = CCDTdatabase;
-% db = CCDTdatabase_old;
-%just nCom and pow with PLV, but has common median ref
-% ddir = '/home/sharedMMRdata/CCDT Data/CCDT/CCDTanalysis_wCAR_noAmpOut_BR_072823/';
-%pow and nCom for PLV, PLI, and wPLI, only has BP and CAR ref
-% ddir = '/home/sharedMMRdata/CCDT Data/CCDT/CCDTanalysis_PLI_BR_081823/';
 Nsubj = height(db);
-
-% CCDTnodeAnalyze quadrant plots (Figure 3 A,B)
-figure;
-subplot(1,2,1)
-set(gcf,'Color','white','Units','inches','Position',[1,1,13,5.5])
-figpos = get(gcf, 'Position');
-set(gcf,'PaperOrientation','landscape','PaperUnits', 'inches','PaperSize', flip(figpos(3:4)));
-hold on
-scatter(fQv,sQv,fIDq.*10,ssIDq)
-plot([-2 2],[-2 2],'--','Color',[156,156,156]/255)
-hold off
-title('Qexp')
-xlim([-2 2])
-ylim([-2 2])
-xline(0,'Color',[156,156,156]/255); yline(0,'Color',[156,156,156]/255);
-subplot(1,2,2)
-set(gcf,'Color','white')
-hold on
-scatter(fPv,sPv,fIDp.*10,ssIDp)
-plot([-2 2],[-2 2],'--','Color',[156,156,156]/255)
-hold off
-title('Pow')
-xlim([-2 2])
-ylim([-2 2])
-xline(0,'Color',[156,156,156]/255); yline(0,'Color',[156,156,156]/255);
-% colorbar
-sgtitle('Feature Node Normalized Network Rank in Fast vs. Slow Trials')
 
 %% 2. quadrant analysis: define quadrants
 
@@ -295,15 +147,12 @@ for featureType = ["qexp", "pow"] % [qPolarity, pPolarity];
         quad_wm_q = []; % which EVE WM structure each node is in
     else 
         % getting channel labels from powRT structure
-%         load powRT_sIall_500msdelay % bipolar for power
-
         load([pdir pfname])
         if contains(pfname,'CAR')
             polarity = 1;
         elseif contains(pfname,'Bipolar') || contains(pfname,'BP')
             polarity = 2;
         end
-%         polarity=2;
         % set up empty vectors for containing the following:
         quad_nodes_p = []; % whether each bipolar node is in GM or WM
         quad_lobes_p = []; % which lobe each node is in (frontal vs temporal)
@@ -641,43 +490,16 @@ for featureType = ["qexp", "pow"] % [qPolarity, pPolarity];
             quad_wm_q = [quad_wm_q;wm_type'];
         end
         
-        all_T1_roi = [all_T1_roi;this_T1_regions];
-
-        
+        all_T1_roi = [all_T1_roi;this_T1_regions];  
     end
-    
 end
 
-
-% save('/mnt/sdb1/CCDT/CCDTscripts/patient_loc_120623','patient_loc')
 %% 5. do quadrant analysis
-% plot_x_label = {'Front. ctx.','Temp-Par. ctx.','Paralimbic GM',...
-%                 'Thal.-cort. WM.','Front.-assoc. WM','Temp.-assoc. WM',...
-%                 'Paralimbic WM','Commissural WM'};
-plot_x_label = {'Frontal','Tmp-parietal','Paralimbic',...
-                'Thal.-cortical','Frontal Assoc.','Tmp.Assoc.',...
-                'Paralimbic','Commissural'};
-
-
 freqs = {'theta/alpha','beta','low-gamma','high-gamma'};
 
 for f = 1:4
             
 plot_x_label_2 = {'Frontal GM','Temporal GM','Frontal WM','Temporal WM'};
-
-% DON'T RUN SECTION 4: get quad_seg_p, quad_nodes_p, quad_wm_p, quad_seg_q, quad_nodes_q, quad_wm_q from patient_loc 
-% not sure if patient_loc(1) 
-% for isubj = 1:27
-%     quad_seg_p = vertcat(patient_loc(2).session(:).seg);
-%     quad_nodes_p = vertcat(patient_loc(2).session(:).type);
-%     quad_wm_p = vertcat(patient_loc(2).session(:).wm);
-%     quad_lobes_p = vertcat(patient_loc(2).session(:).lobes);
-%     
-%     quad_seg_q = vertcat(patient_loc(1).session(:).seg);
-%     quad_nodes_q = vertcat(patient_loc(1).session(:).type);
-%     quad_wm_q = vertcat(patient_loc(1).session(:).wm);
-%     quad_lobes_q = vertcat(patient_loc(1).session(:).lobes);
-% % end
 
 % 1 = FrGM 2 = TPGM 3 = PLGM 4 = TCWM 5 = FAWM 6 = TAWM 7 = PLWM 8 = ComWM
 code_regions_pow = quad_seg_p.*(quad_nodes_p==1)+(quad_wm_p+3).*(quad_nodes_p==-1);
@@ -687,7 +509,6 @@ code_regions_qexp = quad_seg_q.*(quad_nodes_q==1)+(quad_wm_q+3).*(quad_nodes_q==
 code_regions_pow_2 = quad_lobes_p.*(quad_nodes_p==1)+(-1).*quad_lobes_p.*(quad_nodes_p==-1); 
 code_regions_qexp_2 = quad_lobes_q.*(quad_nodes_q==1)+(-1).*quad_lobes_q.*(quad_nodes_q==-1);
 %1 frontal GM, 2 temporal GM, -1 frontal WM, -2 temporal WM
-
 
 for i = [1:4] %quadrant
     for j = [1:8] %region
@@ -723,8 +544,6 @@ all_quad_data_3(2,:) = [pow_quad_plot(2,:)-pow_quad_plot(4,:)];
 all_quad_data_4(1,:) = [qexp_quad_plot_2(2,:)-qexp_quad_plot_2(4,:)];
 all_quad_data_4(2,:) = [pow_quad_plot_2(2,:)-pow_quad_plot_2(4,:)];
 
-
-
 p1 = chi2Tests(qexp_quad_plot([1,3],:))
 p2 = chi2Tests(pow_quad_plot([1,3],:))
 p3 = chi2Tests(qexp_quad_plot([2,4],:))
@@ -747,8 +566,6 @@ b = bar(all_quad_data_allf); %plot first to get limits
 yl = [-50,50];
 % ylim(yl)
 xlim([.6,2.4]) %qexp and power
-% xlim([.6,1.4]) %qexp 
-% xlim([1.6,2.4]) %power
 hold on
 fill([.6 .9 .9 .6],[yl(1) yl(1) yl(2) yl(2)],[180 180 180]/255,'EdgeColor',[180 180 180]/255)
 fill([.6 .9 .9 .6]+1,[yl(1) yl(1) yl(2) yl(2)],[180 180 180]/255,'EdgeColor',[180 180 180]/255)
@@ -758,34 +575,10 @@ hold off
 for ibar = 1:width(all_quad_data_allf)
     b(ibar).FaceColor = barcolors(ibar,:);
 end
-% tried to change legend colors - couldn't get it to work
-% leg_object = legend(gca,plot_x_label);
-% leg_children = get(leg_object,'children');
-% 
-% set(chleg(1),'color','r')
-% set(chleg(2),'color','g')
-% set(chleg(3),'color','y')
-% set(chleg(4),'color','r')
-% set(chleg(5),'color','m')
-% set(chleg(6),'color','c')
 xticks([1:2])
 xticklabels({'Communicability','Power'})
 ylabel('Node count')
 title('Intra-trial') %make sure to change this manually
-% title(sprintf('q1 - q3, Qexp p = %0.2d, pow p = %0.2d',p9,p10))
-% ylim([-50, 60])
-
-%subplot for each fband
-% figure(3);
-% subplot(2,2,f)
-% set(gcf,'Color','white')
-% bar(all_quad_data)
-% legend(plot_x_label)
-% xticks([1:2])
-% xticklabels({'Communicability','Power'})
-% ylabel('Node count')
-% title(sprintf('%s, q1 - q3, Qexp p = %0.2d, pow p = %0.2d',freqs{f},p1,p2))
-% ylim([-50, 60])
 
 all_quad_data_new = zeros(2,4);
 all_quad_data_new(1,1)=all_quad_data_2(1,3); % frontal grey
@@ -798,22 +591,7 @@ all_quad_data_new(2,3)=all_quad_data_2(2,2);
 all_quad_data_new(2,4)=all_quad_data_2(2,1);
 
 all_quad_data_4region = all_quad_data_new;
-
-% figure(4);
-% subplot(2,2,f)
-% set(gcf,'Color','white')
-% bar(all_quad_data_new)
-% legend(plot_x_label_2)
-% xticks([1:2])
-% xticklabels({'Communicability','Power'})
-% ylabel('Node count')
-% title(sprintf('%s, q1 - q3, Qexp p = %0.2d, pow p = %0.2d',freqs{f},p5,p6))
-% % sgtitle('Pre Trial')
-
 end
-
-
-
 
 %% 6. Do anatomical analysis
 % *** this is the main analysis section ***
@@ -828,9 +606,6 @@ for r = 1:8
     seg_ns_coord_struct(r).data = [];
 end
 
-% plot_x_label = {'Front. ctx.','Temp-Par. ctx.','Paralimbic GM',...
-%                 'Thal.-cort. WM.','Front.-assoc. WM','Temp.-assoc. WM',...
-%                 'Paralimbic WM','Commissural WM','Background'};
 plot_x_label = {'Frontal','Tmp-parietal','Paralimbic',...
                 'Thal.-cortical','Frontal Assoc.','Tmp.Assoc.',...
                 'Paralimbic','Commissural'};
@@ -847,37 +622,26 @@ freq_bands = {'Alpha-theta','Beta','Low-gamma','High-gamma'};
 
 yy = 0;
 
-if use8020
-    % get b and p values
-    load([dir8020,fname8020])
-%     load([dir8020 fname8020],'sigPowNdat','sigComNdat')
-%     sigCom = sigComNdat;
-%     sigPow = sigPowNdat;
-    for session = 1:height(sigPow)
-%         if avgAllIterations
-            %average b/p values over all iterations
-            powB{session} = mean(sigPow{session,3},3);
-            comB{session} = mean(sigCom{session,3},3);
-%         else
-            %average b/p values over iterations with p<.05
-%             powB{session} = mean(sigPow{session,3}(sigPow{session,1}),3);
-%             comB{session} = mean(sigCom{session,3}(sigCom{session,1}),3);
-            sigBpow = NaN*zeros(size(sigPow{session,3}));
-            sigBpow(sigPow{session,1}) = sigPow{session,3}(sigPow{session,1});
-            sigBcom = NaN*zeros(size(sigCom{session,3}));
-            sigBcom(sigCom{session,1}) = sigCom{session,3}(sigCom{session,1});
-            powBsig{session} = mean(sigBpow,3,'omitnan');
-            comBsig{session} = mean(sigBcom,3,'omitnan');
-%         end
-        sigPpow = NaN*zeros(size(sigPow{session,2}));
-        sigPpow(sigPow{session,1}) = sigPow{session,2}(sigPow{session,1});
-        sigPcom = NaN*zeros(size(sigCom{session,2}));
-        sigPcom(sigCom{session,1}) = sigCom{session,2}(sigCom{session,1});
-        powP{session} = mean(sigPpow,3,'omitnan');
-        comP{session} = mean(sigPcom,3,'omitnan');
-    end
+% get b and p values
+load([dir8020,fname8020])
+for session = 1:height(sigPow)
+    powB{session} = mean(sigPow{session,3},3);
+    comB{session} = mean(sigCom{session,3},3);
+
+    sigBpow = NaN*zeros(size(sigPow{session,3}));
+    sigBpow(sigPow{session,1}) = sigPow{session,3}(sigPow{session,1});
+    sigBcom = NaN*zeros(size(sigCom{session,3}));
+    sigBcom(sigCom{session,1}) = sigCom{session,3}(sigCom{session,1});
+    powBsig{session} = mean(sigBpow,3,'omitnan');
+    comBsig{session} = mean(sigBcom,3,'omitnan');
+
+    sigPpow = NaN*zeros(size(sigPow{session,2}));
+    sigPpow(sigPow{session,1}) = sigPow{session,2}(sigPow{session,1});
+    sigPcom = NaN*zeros(size(sigCom{session,2}));
+    sigPcom(sigCom{session,1}) = sigCom{session,2}(sigCom{session,1});
+    powP{session} = mean(sigPpow,3,'omitnan');
+    comP{session} = mean(sigPcom,3,'omitnan');
 end
-%load delay_zs_results
          
 z = 0;
 % do for qexp and pow
@@ -886,23 +650,19 @@ for metric = 1:2
     clear all_pval
     
     if metric==1
-%         load graphRT_sIall_500mspre
         load([pdir gfname])
         if contains(gfname,'CAR')
             polarity = 1;
         elseif contains(gfname,'Bipolar') || contains(gfname,'BP')
             polarity = 2;
         end
-%         polarity = 1;
     else 
-%         load powRT_sIall_500mspre
         load([pdir pfname])
         if contains(pfname,'CAR')
             polarity = 1;
         elseif contains(pfname,'Bipolar') || contains(pfname,'BP')
             polarity = 2;
         end
-%         polarity = 2;
     end
     
     clear EVE_all_freq
@@ -916,7 +676,6 @@ for metric = 1:2
         for r = 1:8
         seg_bval_ns(r).data = [];
         end
-        
         
         % do for thresholds 0.05 and 0.1
         for thres = 1
@@ -952,48 +711,26 @@ for metric = 1:2
              patient_roi_max = zeros(177,27);
             
             % do for sessions 1:27
-            for session = patient_vec
-                %session
-
+            for session = patient_vec %session
                 % Get all b and p values
                 if strcmp(qexp_vs_pow{metric},'qexp')
-                    if use8020
-                        all_b_val = comB{session}(:,freq);
-                        all_p_val = comP{session}(:,freq);
-                        all_b_val_sig = comBsig{session}(:,freq);
-                        sigPerc = sum(sigCom{session,1}(:,freq,:),3)/size(sigCom{session,1},3);
-                    else
-                        all_b_val = LTqexp{session}(:,freq,1);
-                        all_p_val = LTqexp{session}(:,freq,4);
-                    end
-
+                    all_b_val = comB{session}(:,freq);
+                    all_p_val = comP{session}(:,freq);
+                    all_b_val_sig = comBsig{session}(:,freq);
+                    sigPerc = sum(sigCom{session,1}(:,freq,:),3)/size(sigCom{session,1},3);
                 else
-                    if use8020
-                        all_b_val = powB{session}(:,freq); %avg b val avged over all iterations
-                        all_p_val = powP{session}(:,freq);
-                        all_b_val_sig = powBsig{session}(:,freq); %avg b val avged over iterations w p<.05
-                        sigPerc = sum(sigPow{session,1}(:,freq,:),3)/size(sigPow{session,1},3);
-                    else
-                        all_b_val = LTpow{session}(:,freq,1);
-                        all_p_val = LTpow{session}(:,freq,4);
-                    end
+                    all_b_val = powB{session}(:,freq); %avg b val avged over all iterations
+                    all_p_val = powP{session}(:,freq);
+                    all_b_val_sig = powBsig{session}(:,freq); %avg b val avged over iterations w p<.05
+                    sigPerc = sum(sigPow{session,1}(:,freq,:),3)/size(sigPow{session,1},3);
                 end
                 
                 % get significant channels based on p value threshold
-                if use8020        
-                    [sig_ch,sigFreq] = find(sigPerc>percThresh);
-%                     chlabs = NFstruct(isubj).gchlbl(sigElec);
-%                     flabsPow = fbandNames(sigFreq);
-                    [non_sig_ch,nonsigFreq] = find(sigPerc<=percThresh);
-                    sig_ch_all{session} = [sig_ch_all{session}; sig_ch];
-                else
-                    sig_ch = find(all_p_val<threshold(thres));
-                    non_sig_ch = find(all_p_val>=.05);
-                end
+                [sig_ch,sigFreq] = find(sigPerc>percThresh);
+                [non_sig_ch,nonsigFreq] = find(sigPerc<=percThresh);
+                sig_ch_all{session} = [sig_ch_all{session}; sig_ch];
                 ch_names = NFstruct(session).gchlbl;
-                
-                % *** still need to do channel parsing ***
-                
+                                
                 % check if there are any significant channels
                 if isempty(sig_ch)
                     fprintf('skipping session b/c no significance\n')
@@ -1001,11 +738,7 @@ for metric = 1:2
                     all_non_sig = [all_non_sig;all_b_val];
                 else
                     % extract significant channel p values, p values, and names
-                    if use8020 & ~avgAllIterations
-                        sig_b_val = all_b_val_sig(sig_ch);
-                    else
-                        sig_b_val = all_b_val(sig_ch);
-                    end
+                    sig_b_val = all_b_val_sig(sig_ch);
                     sig_p_val = all_p_val(sig_ch);
                     sig_ch_names = ch_names(sig_ch);
                     nonsig_ch_names = ch_names(non_sig_ch);
@@ -1177,10 +910,6 @@ for metric = 1:2
             
             EVE_all_freq(:,:,freq) = EVE_100_elec;
             
-            %data_table = [seg_bvals,EVE_WM,pt_background];
-            
-            % change the pval stuff below
-            
             for r = 1:8
                 all_median_table(z,r) = nanmedian(seg_EVE_roi(r).data);  
                 all_mean_table(z,r) = mean(seg_EVE_roi(r).data,'omitnan');
@@ -1198,26 +927,20 @@ for metric = 1:2
             all_pval_wm(z) = ranksum(all_vals_sig(z).wm,all_non_sig_struct(z).data);
             
             figure(z);clf
-%             figure(metric); 
-%             subplot(4,1,freq)
             set(gcf,'Color','white','Position',[723   523   577   320])
             hold on
             qqq= 0;
             h1 = 1
             a1 = scatter(ones(1,length(all_non_sig_struct(z).data)),all_non_sig_struct(z).data,10,'MarkerEdgeColor',color1,'MarkerFaceColor',color1,'jitter','on')
             plot([0.75 1.25],[nanmedian(all_non_sig_struct(z).data) nanmedian(all_non_sig_struct(z).data)],'k-','LineWidth',1)
-%             ylim([-400,400])
             for r = 1:8 %regions
                 if r<4
-%                     which_color = color2;
                     which_color = gm_color_1;
                 elseif r<9
-%                     which_color = color5;
                     which_color = wm_color_2;
                 else
                     which_color = color1;
                 end
-                %try p99(z).data(r) = ranksum(seg_EVE_roi(r).data,seg_bval_ns(r).data);%p99(z).data(r) = ranksum(seg_EVE_roi(r).data,all_non_sig_struct(z).data); seg_bval_ns(r).data
                 try [p99(z).data(r) p99(z).h(r) p99(z).stats(r)] = ranksum(seg_EVE_roi(r).data,all_non_sig_struct(z).data);
                         num_selected(z,r) = length(seg_EVE_roi(r).data);
                         
@@ -1240,46 +963,30 @@ for metric = 1:2
             which_sig = find(p99(z).data<(0.05/64));
             for j = 1:num_sig
                 stop_sig = which_sig(j)+2;
-            plot([1,stop_sig], [y_val*1.1.^j,y_val*1.1.^j], '-k', 'LineWidth',.5)
-            if p99(z).data(stop_sig-2)<(0.001./64)
-            plot(mean([1,stop_sig]), y_val*(1.1.^j+0.05), '+k','MarkerSize',4)
-            elseif p99(z).data(stop_sig-2)<(0.01./64)
-                plot(mean([1,stop_sig]), y_val*(1.1.^j+0.05), 'dk','MarkerSize',4)
-            elseif p99(z).data(stop_sig-2)<(0.05./64)
-                plot(mean([1,stop_sig]), y_val*(1.1.^j+0.05), '*k','MarkerSize',4)
-%             elseif p99(z).data(stop_sig-2)<0.05
-%                 plot(mean([1,stop_sig]), y_val*(1.1.^j+0.05), 'xk')
-            end
+                plot([1,stop_sig], [y_val*1.1.^j,y_val*1.1.^j], '-k', 'LineWidth',.5)
+                if p99(z).data(stop_sig-2)<(0.001./64)
+                plot(mean([1,stop_sig]), y_val*(1.1.^j+0.05), '+k','MarkerSize',4)
+                elseif p99(z).data(stop_sig-2)<(0.01./64)
+                    plot(mean([1,stop_sig]), y_val*(1.1.^j+0.05), 'dk','MarkerSize',4)
+                elseif p99(z).data(stop_sig-2)<(0.05./64)
+                    plot(mean([1,stop_sig]), y_val*(1.1.^j+0.05), '*k','MarkerSize',4)
+                end
             end
             hold off
-%             try ylim([y_val*(1.1.^j+0.1)])
-%             catch ME
-%             end
-%             legend([a5,a6],'White matter','Gray matter','Location','SouthEast')
-%             xticks([1,3.5,5.5])
-%             ylabel('Regression slope')
-             xticks([1,3:qqq])
-             xticklabels(['Non-selected',plot_x_label])
-%             set(gcf,'position',[100,100,1333,500])
+            xticks([1,3:qqq])
+            xticklabels(['Non-selected',plot_x_label])
             title(sprintf('Metric = %s Frequency = %s lobar ROI',qexp_vs_pow{metric},freq_bands{freq}))
-            %saveas(gcf,sprintf('output/non_selected_null/pretrial_metric_%s_frequency_%s_seg_EVE.jpg',qexp_vs_pow{metric},freq_bands{freq}))
              
-             for r = 1:4
+            for r = 1:4
                 p100(z).data(r) = ranksum(mean_bval_lobe(:,r),all_non_sig_struct(z).data);
             end
             
-
-%             patient_roi_curr = patient_roi(:,2:Nsubj); %use when not using all subjects
             if thres <3
                 % create table
                 patient_roi_bilat = zeros(89,27);
                 patient_roi_bilat(1,:) = patient_roi(1,:);
                 patient_roi_bilat([2:89],:) =  patient_roi_bilat([2:89],:) + patient_roi(2:89,:)+patient_roi(90:177,:);
                 region_table = create_region_table(EVE_roi_list_bilat,patient_roi_bilat);
-                % write table
-                which_folder = folder_list{thres};
-%                 writetable(region_table,sprintf('output/Final/CSV_files/%s/%s_counts_freq_%d_%f_threshold.csv',...
-%                     which_folder,qexp_vs_pow{metric},freq,threshold(thres))); 
             else
                  % create the tables
                 patient_roi_bilat_min = zeros(89,27);
@@ -1291,10 +998,7 @@ for metric = 1:2
                 patient_roi_bilat_max([2:89],:) =  patient_roi_bilat_max([2:89],:) + patient_roi_max(2:89,:)+patient_roi_max(90:177,:);
 
                 region_table_min = create_region_table(EVE_roi_list_bilat,patient_roi_bilat_min);
-                region_table_max = create_region_table(EVE_roi_list_bilat,patient_roi_bilat_max);
-
-                which_folder = folder_list{thres};
-                
+                region_table_max = create_region_table(EVE_roi_list_bilat,patient_roi_bilat_max);                
             end
 
         end
@@ -1313,9 +1017,7 @@ for metric = 1:2
         
         % gm
         final_elec_matrix = [seg_sig_coords,ceil(seg_pval_all),ceil(seg_pval_all)];
-        %dlmwrite('output/1Jan2021/nodal_plots/render_elecs.node',final_elec_matrix,'delimiter',' ','precision',5)
-        %BrainNet_MapCfg('BrainMesh_ICBM152_smoothed.nv','output/1Jan2021/nodal_plots/render_elecs.node','dec5_option.mat',sprintf('output/1Jan2021/nodal_plots/GM_nodal_%d_freq_%d.jpg',metric,freq))
-         
+          
         % do rendering
         % mean value of each ROI
         for r = 1:8
@@ -1323,36 +1025,30 @@ for metric = 1:2
             region_pvals(r) = p99(z).data(r);
         end
        
-seg_counts(:,9) = [];
-sig_frac = seg_counts./(seg_counts_nonsig+seg_counts);
-sig_frac(isinf(sig_frac))=NaN;
-sig_frac_high = sig_frac;
-sig_frac_high(sig_frac_high==0) = NaN;
-
-all_sig_struct(metric).sig_frac(freq,:) = mean(sig_frac,'omitnan');
-all_sig_struct(metric).sig_frac_high(freq,:) = mean(sig_frac_high,'omitnan');
-all_sig_struct(metric).sig_frac_all(freq).data = sig_frac;
-all_sig_struct(metric).seg_counts(freq,:) = sum(seg_counts>0);
-all_sig_struct(metric).seg_counts_nonsig(freq,:) = sum(seg_counts_nonsig>0);
-
-% find which WM, GM structures are significant and get only those
-% coordinates
-which_roi = find(p99(z).data<(0.05/64));
-[this_sig_roi_gm, ~] = ismember(roi_sig_coords,which_roi);
-[this_sig_roi_wm, ~] = ismember(wm_roi_sig_coords,which_roi);
-
-gm_coord_render_final = seg_sig_coords(this_sig_roi_gm,:);
-wm_coord_render_final = wm_sig_coords(this_sig_roi_wm,:);
+        seg_counts(:,9) = [];
+        sig_frac = seg_counts./(seg_counts_nonsig+seg_counts);
+        sig_frac(isinf(sig_frac))=NaN;
+        sig_frac_high = sig_frac;
+        sig_frac_high(sig_frac_high==0) = NaN;
+        
+        all_sig_struct(metric).sig_frac(freq,:) = mean(sig_frac,'omitnan');
+        all_sig_struct(metric).sig_frac_high(freq,:) = mean(sig_frac_high,'omitnan');
+        all_sig_struct(metric).sig_frac_all(freq).data = sig_frac;
+        all_sig_struct(metric).seg_counts(freq,:) = sum(seg_counts>0);
+        all_sig_struct(metric).seg_counts_nonsig(freq,:) = sum(seg_counts_nonsig>0);
+        
+        % find which WM, GM structures are significant and get only those
+        % coordinates
+        which_roi = find(p99(z).data<(0.05/64));
+        [this_sig_roi_gm, ~] = ismember(roi_sig_coords,which_roi);
+        [this_sig_roi_wm, ~] = ismember(wm_roi_sig_coords,which_roi);
+        
+        gm_coord_render_final = seg_sig_coords(this_sig_roi_gm,:);
+        wm_coord_render_final = wm_sig_coords(this_sig_roi_wm,:);
     
-        final_elec_matrix1 = [gm_coord_render_final,2*ones(size(gm_coord_render_final,1),1),ones(size(gm_coord_render_final,1),1)]
-        %dlmwrite(sprintf('march_2023/gm_render_elecs_metric_%d_freq_%d.node',metric,freq),final_elec_matrix1,'delimiter',' ','precision',5)
-    
-        final_elec_matrix2 = [wm_coord_render_final,ones(size(wm_coord_render_final,1),1),ones(size(wm_coord_render_final,1),1)]
-        %dlmwrite(sprintf('march_2023/wm_render_elecs_metric_%d_freq_%d.node',metric,freq),final_elec_matrix2,'delimiter',' ','precision',5)
-    
-        final_elec_matrix = [final_elec_matrix1;final_elec_matrix2];
-        %dlmwrite(sprintf('march_2023/all_render_elecs_metric_%d_freq_%d.node',metric,freq),final_elec_matrix,'delimiter',' ','precision',5)
-    
+        final_elec_matrix1 = [gm_coord_render_final,2*ones(size(gm_coord_render_final,1),1),ones(size(gm_coord_render_final,1),1)];
+        final_elec_matrix2 = [wm_coord_render_final,ones(size(wm_coord_render_final,1),1),ones(size(wm_coord_render_final,1),1)];
+        final_elec_matrix = [final_elec_matrix1;final_elec_matrix2];    
     end
     
     if strcmp(qexp_vs_pow{metric},'qexp')
@@ -1362,20 +1058,14 @@ wm_coord_render_final = wm_sig_coords(this_sig_roi_wm,:);
         sig_ch_all_P = sig_ch_all;
         sig_ch_names_all_P = sig_ch_names_all;
     end
-
-
 end
 
 %% 7. anatomical region heat maps (MH)
 close all
 addAsterisk = 1;
-% save_heatmap_data = 1;
 
 load color_bar.mat
 fband_labs = {'{\theta}/{\alpha}','\beta','L_{\gamma}','H_{\gamma}'};
-% region_labs = {'\color{darkgreen}Frontal GM','\color{darkgreen}Temporoparietal GM','\color{darkgreen}Paralimbic GM',...
-%                 '\color{orange}Thalamocortical WM','\color{orange}Frontal association WM',...
-%                 '\color{orange}Temporal association WM','\color{orange}Paralimbic WM','\color{orange}Commissural WM'};
 plot_x_label = {'Frontal','Tmp-parietal','Paralimbic',...
                 'Thal.-cortical','Frontal Assoc.','Tmp.Assoc.',...
                 'Paralimbic','Commissural'};
@@ -1396,16 +1086,13 @@ for z = 1:size(sig_all_median_table,1) % 4 fbands * 2 metrics
     % which node-features have distributions significantly different from non-significant features
     num_sig(z) = sum(p99(z).data<(0.05/64));
     which_sig = find(p99(z).data<(0.05/64));
-%     sig_all_mean_table(z,which_sig) = all_mean_table(z,which_sig);
     sig_all_median_table(z,which_sig) = all_median_table(z,which_sig);
 end
 
 if save_heatmap_data
     %save data for figures w diff thresholds
     t = num2str(percThresh);
-%     save(['heatmap_data_prehg70110_100dat_' t(3:end) '.mat'],"sig_all_median_table")
     save([savedir savefname],"sig_all_median_table","all_median_table","all_mean_table","all_median_table_nonsig","all_mean_table_nonsig","p99")
-
 end
 
 figure(3); clf;
@@ -1427,7 +1114,6 @@ xtickangle(-30)
 colorbar;
 colormap(flip(color_bar));
 clim([-200,200])
-% clim([-350,350])
 
 a2 = subplot(1,2,2);
 h2 = imagesc(sig_all_median_table(5:8,:));
@@ -1443,7 +1129,6 @@ colorbar;
 colormap(flip(color_bar));
 xtickangle(-30)
 clim([-200,200])
-% clim([-350,350])
 
 if addAsterisk
     % sig stars
@@ -1476,15 +1161,11 @@ end
 fastColor = [30,144,255]/255; %medium blue, 1E90FF
 slowColor = [238,118,33]/255; %orange, EE7621
 fbandNames = ["T/A" "B" "loG" "hiG"];
-% fbandNames = ["{\alpha}" "{\beta}" "${\gamma}$" "${\gamma_H}$"];
 load([pdir pfname],"NFstruct","LTpow"); 
 NFstructP = NFstruct;
 load([pdir gfname],"NFstruct","LTqexp");
 NFstructQ = NFstruct;
 clear NFstruct;
-% subjs = [1];
-% subjs = [7,12,18];
-% subjs = [1,3,7,8,13,14,26]
 subjs = [3,14,26];
 
 subplotIdx = 0;
@@ -1512,12 +1193,6 @@ for isubj = subjs %1:Nsubj
         bQ(i,1) = mean(sigCom{isubj,3}(subj_featIdxQ(i),subj_fIDq(i),:),3) ;
     end
     bQ(:,2) = 2;
-
-    %get features with highest slopes 
-%     avgBs = [bP;bQ];
-%     [maxB, maxBIdx] = max(abs(avgBs(:,1))); %get highest B
-%     avgBs(maxBIdx,1) = 0; %set max val = 0
-%     [maxB2, maxBIdx2] = max(abs(avgBs(:,1))); %get 2nd highest B
 
     avgBs = [bP;bQ];
     [maxB, maxBIdx] = max(avgBs(:,1)); %get highest positive B
@@ -1565,18 +1240,13 @@ for isubj = subjs %1:Nsubj
     figpos = get(gcf, 'Position');
     set(gcf,'PaperOrientation','landscape','PaperUnits', 'inches','PaperSize', flip(figpos(3:4)));
     subplot(1,length(subjs),subplotIdx)
-%     subplot(4,7,isubj) %for all subjects
-%     title(['Subject: ' num2str(isubj)]) %for all subjects
     hold on
     scatter(feat1fast,feat2fast,'o',"MarkerEdgeColor",fastColor,'LineWidth',1.5)
     scatter(feat1slow,feat2slow,'o',"MarkerEdgeColor",slowColor,'LineWidth',1.5)
     hold off
     xlabel(strcat("Node-feature 1: ",featF1," ",featType1," ",featCh1))
     ylabel(strcat("Node-feature 2: ",featF2," ",featType2," ",featCh2))
-%     xticks([-1.1,-1,-.9,-.8])
-%     yticks([-1.1,-1,-.9,-.8])
     sgtitle('2 Most Significant Features')
-
 
     % z-scored features in RT order
     cRT = behavStruct(isubj).vRT;
@@ -1584,11 +1254,9 @@ for isubj = subjs %1:Nsubj
     nTrl = length(find(goodTrl));
     cRT = cRT(goodTrl);
     [rtSort,rtIdx] = sort(cRT); %ascending sort
-
     
     allSigFeatsZ = zscore(vertcat(pFeats(:,goodTrl),qFeats(:,goodTrl)),0,2); %zscore within feature (along rows)
     allSigFeatsZRTsort = allSigFeatsZ(:,rtIdx);
-%     [zscoreSort,zscoreIdx] = sort(allSigFeatsZRTsort(:,1)); %sort features by zscore of fastest RT trial
     [zscoreSort,zscoreIdx] = sort(mean(allSigFeatsZRTsort(:,1:10),2));
     RTFeatSort = allSigFeatsZRTsort(zscoreIdx,:); 
 
@@ -1597,20 +1265,15 @@ for isubj = subjs %1:Nsubj
     figpos = get(gcf, 'Position');
     set(gcf,'PaperOrientation','landscape','PaperUnits', 'inches','PaperSize', flip(figpos(3:4)));
     subplot(1,length(subjs),subplotIdx)
-%     subplot(4,7,isubj) %for all subjects
-%     title(['Subject: ' num2str(isubj)]) %for all subjects
     imagesc(RTFeatSort)
     clim([-1,1])
     if length(subjs) == 1%subplotIdx == length(subjs)
         colorbar('Ticks', [-1,0,1])
     end
-%     xlabel('Trial # (ordered fastest to slowest RT)')
-%     ylabel('Feature # (ordered smallest to largest z-score of fastest trial)')
     sgtitle('Z-scored Features')   
     xlabel('Trials sorted by RT')
     ylabel('Node-features')
     xticks([50,100])
-% %     colorbar
 
 
     trls = 1:length(goodTrl);
@@ -1635,118 +1298,3 @@ for isubj = subjs %1:Nsubj
 
     clear pFeats qFeats
 end
-
-%%
-% 
-% figure(1);clf;
-% subplot(1,2,1)
-% bar(qexp_quad_plot)
-% legend(plot_x_label)
-% xticks([1:2])
-% xticklabels({'Quadrant 1','Quadrant 3'})
-% ylabel('Node count')
-% ylim([0 80])
-% title(sprintf('Qexp, Chi-square p = %d',chi2Tests(qexp_quad_plot)))
-% subplot(1,2,2)
-% bar(pow_quad_plot)
-% legend(plot_x_label)
-% xticks([1:2])
-% xticklabels({'Quadrant 1','Quadrant 3'})
-% ylabel('Node count')
-% ylim([0 70])
-% title(sprintf('Power, Chi-square p = %f',chi2Tests(pow_quad_plot)))
-% figure(2);clf;
-% subplot(1,2,1)
-% bar(qexp_quad_plot)
-% legend('Frontal WM','Frontal GM','Temporal WM','Temporal GM')
-% xticks([1:4])
-% xticklabels({'Quadrant 1','Quadrant 2','Quadrant 3','Quadrant 4'})
-% ylabel('Node count')
-% title(sprintf('Qexp, Chi-square p = %d',chi2Tests(qexp_quad_plot)))
-% subplot(1,2,2)
-% bar(pow_quad_plot)
-% legend('Frontal WM','Frontal GM','Temporal WM','Temporal GM')
-% xticks([1:4])
-% xticklabels({'Quadrant 1','Quadrant 2','Quadrant 3','Quadrant 4'})
-% ylabel('Node count')
-% title(sprintf('Power, Chi-square p = %f',chi2Tests(pow_quad_plot)))
-% %%
-% 
-% patient_vec = [1:2,4:21,23:26]; %[1:27]
-% 
-% load graphRT_sIall_500mspre
-% for session = patient_vec
-%     for freq = 1:4
-%         all_p_val = LTqexp{session}(:,freq,4);
-%         this_frac_graph(session,freq) = mean(all_p_val<0.05);
-%         this_sig_graph(session,freq) = sum(all_p_val<0.05);
-%         this_tot_graph(session,freq) = length(all_p_val);
-%     end
-% end
-% 
-% %save('node_counts/graph_pre_nums.mat','this_sig_graph','this_tot_graph')
-% 
-% load powRT_sIall_500mspre
-% for session = patient_vec
-%     for freq = 1:4
-%         all_p_val = LTpow{session}(:,freq,4);
-%         this_frac_pow(session,freq) = mean(all_p_val<0.05);
-%         this_sig_pow(session,freq) = sum(all_p_val<0.05);
-%         this_tot_pow(session,freq) = length(all_p_val);
-%     end
-% end
-% 
-% %save('node_counts/pow_pre_nums.mat','this_sig_graph','this_tot_graph')
-% 
-% g1 = this_frac_graph(:);
-% p1 = this_frac_pow(:);
-% 
-% mean(this_frac_graph(:))
-% std(this_frac_graph(:))/sqrt(length(this_frac_graph(:)))
-% mean(this_frac_pow(:))
-% std(this_frac_pow(:))/sqrt(length(this_frac_pow(:)))
-% 
-% load graphRT_sIall_500msdelay
-% for session = patient_vec
-%     for freq = 1:4
-%         all_p_val = LTqexp{session}(:,freq,4);
-%         this_frac_graph(session,freq) = mean(all_p_val<0.05);
-%         this_sig_graph(session,freq) = sum(all_p_val<0.05);
-%         this_tot_graph(session,freq) = length(all_p_val);
-%     end
-% end
-% 
-% %save('node_counts/graph_delay_nums.mat','this_sig_graph','this_tot_graph')
-% 
-% load powRT_sIall_500msdelay
-% for session = patient_vec
-%     for freq = 1:4
-%         all_p_val = LTpow{session}(:,freq,4);
-%         this_frac_pow(session,freq) = mean(all_p_val<0.05);
-%         this_sig_pow(session,freq) = sum(all_p_val<0.05);
-%         this_tot_pow(session,freq) = length(all_p_val);
-%     end
-% end
-% 
-% %save('node_counts/pow_delay_nums.mat','this_sig_graph','this_tot_graph')
-% 
-% g2 = this_frac_graph(:);
-% p2 = this_frac_pow(:);
-% 
-% mean(this_frac_graph(:))
-% std(this_frac_graph(:))/sqrt(length(this_frac_graph(:)))
-% mean(this_frac_pow(:))
-% std(this_frac_pow(:))/sqrt(length(this_frac_pow(:)))
-% 
-% figure(1);clf;
-% hold on
-% bar([0.0623, 0.0624, 0.0545, 0.0807])
-% errorbar([0.0623, 0.0624, 0.0545, 0.0807],[0.007, 0.004, 0.0063, 0.0059],'k.')
-% xticks([1:4])
-% xticklabels({'Qexp pre-trial','Pow pre-trial','Qexp delay','Pow delay'})
-% xtickangle(-45)
-% ylabel('Fraction of significant nodes')
-% 
-% signrank(g1,g2)
-% signrank(p1,p2)
-% 
