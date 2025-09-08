@@ -1,0 +1,5 @@
+*.pyc
+*.asv
+*.m~
+*.mat
+*_calibration.jpg
