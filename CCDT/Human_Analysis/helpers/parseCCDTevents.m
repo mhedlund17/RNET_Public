@@ -1,7 +1,7 @@
 function [ccdt,fs] = parseCCDTevents(varargin)
 % function [ccdt,fs] = parseCCDTevents(varargin)
 %   Parse data from CCDT events file. Returns matrix:
-%   ccdt = trial x [cue indices, go indices, response indices, DT (ms), RT (ms)]
+%   ccdt = trial x [1st cue indices, 2nd (go) cue indices, response indices, Delay Time (ms), Response Time (ms)]
 %   fs = sampling rate
 %
 %   DR 10/2018
@@ -90,3 +90,4 @@ end
 if strcmp(subj,'HUP069')
     ccdt(42:45,:) = []; % recording blanked out for these 4 trials
 end
+
