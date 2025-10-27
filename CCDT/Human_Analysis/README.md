@@ -1,6 +1,36 @@
 # Scripts Used for Analysis of Human Data
 
+## Quick Install Guide
+
+### Prerequisites
+Before running the MATLAB scripts, make sure you have:
+- **MATLAB R2022b** or later (recommended)  
+- The following MATLAB toolboxes installed:
+  - Signal Processing Toolbox  
+  - Statistics and Machine Learning Toolbox  
+  - (Optional) Parallel Computing Toolbox for faster processing
+
+### Installation Steps
+These steps are estimated to take approximately 10 minutes.
+1. **Clone or Download the Repository**
+   ```bash
+   git clone https://github.com/mhedlund/RNET_Public/CCDT/Human_Analysis.git
+   cd Human_Analysis
+   ```
+   Or download the .zip file from GitHub and extract it.  
+2. **Add Project to MATLAB Path**  
+   Open MATLAB and run:  
+   ```bash
+   addpath(genpath(pwd)) % pwd prints current working directory
+   savepath
+   ```  
+   This makes all functions and scripts accessible.
+
+---
 ## File Descriptions (listed in approximate order of use)
+
+<u>**CCDTdatabase:**</u>  
+Lists subjects and task sessions to include in the analysis. This file is loaded into all analysis functions/scripts. Edit this prior to any analysis, uncommenting lines corresponding to sessions you wish to include.
 
 
 <u>**loadCCDTdata:**</u>  
@@ -14,6 +44,10 @@ Calculates and saves trial-by-trial graph network metrics (communicability).
 
 <u>**CCDT_power_features:**</u>  
 Calculates and saves trial-by-trial spectral power metrics.  
+
+
+<u>**CCDT_trPLV:**</u>  
+Calculates and saves time-resolved phase locking value.  
 
 
 <u>**CCDTanalyze:**</u>  
@@ -34,6 +68,18 @@ Analyzes anatomical representation of selected features across subjects.
 <u>**CCDT_subregion_proportion_test:**</u>  
 Performs statistical tests to determine which subregions are over- or under-represented within the selected feature space.  
 
-
-##  Helper Files
+<u>**Helper Files:**</u>  
 Will not be run independently — they are called within interactive files.  
+
+
+---
+## Demo & Analysis instuctions
+Demo will go through full analysis using raw data from a single subject. This will take approximately XX minutes/hours to run (tested on Windows 11, Intel Core i9-12900K, 2500MHz, 14Cores, 16GB RAM). 
+
+The demo can be expaneded to analyze the full dataset from FigShare. After downloading this dataset, simply change the raw data directories in `loadData_natus.m`, `CCDT_graph_features.m`, `CCDT_power_features.m`, and `CCDT_trPLV.m`. Then uncomment all lines in `CCDTdatabase.m` to include all subjects and task sessions in the analysis. 
+
+# Pseudocode for Demo
+```
+%add matlab pseudocode for running scripts and descriptive comments about the purpose of each step as well as the expected input and output.
+---
+
