@@ -1,0 +1,116 @@
+LDA1, Left PHG parahippocampal gyrus,-12.2057,-3.59433,-19.02826921,L_Temporal_WM,n/a
+LDA2, Left Hippocampus,-17.3969,-4.75213,-18.74884082,Hippocampus_L,n/a
+LDA3, Left Amygdala,-22.7117,-5.21004,-18.08143458,Hippocampus_L,n/a
+LDA4, Left Hippocampus,-27.7155,-7.03961,-19.43044674,Hippocampus_L,n/a
+LDA5, Left Inf Lat Vent,-33.8417,-7.25583,-20.56797431,Hippocampus_L,Limbic
+LDA6, Left Cerebral White Matter,-40.1081,-9.58972,-22.63972789,Fusiform_L,Limbic
+LDA7, Left Cerebral White Matter,-43.1792,-8.64876,-20.54508207,L_Temporal_WM,Ventral_Attention
+LDA8, Left Cerebral White Matter,-47.9172,-8.83192,-22.1463383,Temporal_Mid_L,Default
+LDB1, Left Ventral DC,-13.4008,-8.2041,-16.25470022,L_Temporal_WM,n/a
+LDB2, Left Hippocampus,-18.2125,-10.8103,-14.99746607,Hippocampus_L,n/a
+LDB3, Left Hippocampus,-24.5468,-12.0828,-16.32138837,Hippocampus_L,n/a
+LDB4, Left Hippocampus,-29.5556,-14.2817,-17.24442359,Hippocampus_L,n/a
+LDB5, Left Hippocampus,-35.1574,-15.0163,-19.43342755,Fusiform_L,Limbic
+LDB6, Left Cerebral White Matter,-40.595,-15.1365,-20.93847977,Fusiform_L,Limbic
+LDB7, Left Cerebral White Matter,-43.4451,-13.2067,-18.9533805,L_Temporal_WM,Limbic
+LDB8, Left Cerebral White Matter,-48.0856,-15.3099,-21.7578426,Temporal_Inf_L,Limbic
+LDC1, Left Hippocampus,-25.2142,-26.2606,-11.114711,ParaHippocampal_L,Default
+LDC2, Left Hippocampus,-30.0963,-27.321,-12.4825647,ParaHippocampal_L,Default
+LDC3, Left Cerebral White Matter,-34.5788,-28.1445,-14.53483557,Fusiform_L,Default
+LDC4, Left Cerebral White Matter,-38.6793,-26.2173,-13.78669452,Fusiform_L,Dorsal_Attention
+LDC5, Left Cerebral White Matter,-42.8622,-25.6386,-13.32697411,Temporal_Inf_L,Limbic
+LDC6, Left Cerebral White Matter,-47.7535,-24.8606,-13.8668243,Temporal_Mid_L,Default
+LDC7, Left MTG middle temporal gyrus,-54.3775,-25.8776,-13.22247254,Temporal_Mid_L,Default
+LDC8, Left Cerebral White Matter,-61.4237,-27.8597,-12.84711283,Temporal_Mid_L,Default
+LDD1, Left Cerebral White Matter,-18.699,-39.2967,34.50027173,L_Parietal_WM,Ventral_Attention
+LDD2, Left Cerebral White Matter,-24.041,-37.9919,33.00301938,L_Parietal_WM,n/a
+LDD3, Left Cerebral White Matter,-29.5957,-38.3908,30.21197023,L_Parietal_WM,Dorsal_Attention
+LDD4, Left Cerebral White Matter,-33.6009,-37.5513,27.65313796,L_Parietal_WM,n/a
+LDD5, Left Cerebral White Matter,-39.4272,-39.7953,25.00564179,L_Parietal_WM,Somatomotor
+LDD6, Left Cerebral White Matter,-45.0445,-39.5074,22.54448284,L_Parietal_WM,Somatomotor
+LDD7, Left Cerebral White Matter,-51.0718,-38.1218,21.85539945,Temporal_Sup_L,Ventral_Attention
+LDD8, Left SMG supramarginal gyrus,-55.9884,-35.6985,23.82725528,Temporal_Sup_L,Ventral_Attention
+LDE1, Left Putamen,-28.3277,-18.0827,10.14292509,Putamen_L,Somatomotor
+LDE2, Left PIns posterior insula,-33.2449,-17.3531,11.61375943,Insula_L,Somatomotor
+LDE3, Left PIns posterior insula,-37.5403,-16.3597,12.50928853,Insula_L,Somatomotor
+LDE4, Left PIns posterior insula,-43.6484,-15.0082,12.09107357,Heschl_L,Somatomotor
+LDE5, Left TTG transverse temporal gyrus,-49.884,-12.538,9.7413986,Heschl_L,Somatomotor
+LDE6, Left CO central operculum,-56.0884,-12.4098,9.056115132,Heschl_L,Somatomotor
+LDE7, Left CO central operculum,-62.6001,-13.079,11.39850512,Temporal_Sup_L,Somatomotor
+LDE8, Left PoG postcentral gyrus,-64.326,-11.4447,16.20160083,Postcentral_L,Somatomotor
+LDE9, Left Cerebral White Matter,-61.6696,-9.64777,22.03861965,Postcentral_L,Somatomotor
+LDE10, Left Cerebral White Matter,-58.6326,-6.0779,28.04719791,Postcentral_L,Somatomotor
+LDE11, Left SMG supramarginal gyrus,-54.7216,-6.53955,32.25978316,Precentral_L,Somatomotor
+LDE12, Left PoG postcentral gyrus,-55.031,-9.49426,36.33860482,Postcentral_L,Somatomotor
+LDF1, Left Putamen,-28.4197,-2.0643,7.894112989,Putamen_L,n/a
+LDF2, Left Cerebral White Matter,-34.5872,-0.632848,7.376011703,L_Frontal_WM,Ventral_Attention
+LDF3, Left AIns anterior insula,-40.9881,0.279424,7.652964648,Insula_L,Ventral_Attention
+LDF4, Left CO central operculum,-46.9011,-0.061862,6.763473856,Insula_L,Ventral_Attention
+LDF5, Left CO central operculum,-52.7479,0.174029,6.653049826,Rolandic_Oper_L,Ventral_Attention
+LDF6, Left CO central operculum,-57.7814,0.357792,9.272555759,Rolandic_Oper_L,Somatomotor
+LDF7, Left PoG postcentral gyrus,-62.6246,1.24386,13.03949884,Rolandic_Oper_L,Somatomotor
+LDF8, Left PrG precentral gyrus,-62.6498,0.606387,17.67047343,Postcentral_L,Somatomotor
+LDF9, Left PoG postcentral gyrus,-59.8714,-2.7672,22.26176092,Postcentral_L,Somatomotor
+LDF10, Left PoG postcentral gyrus,-56.7107,-3.12502,25.92170561,Postcentral_L,Somatomotor
+LDF11, Left Cerebral White Matter,-55.1279,-0.829378,30.24723258,Precentral_L,Somatomotor
+LDF12, Left PoG postcentral gyrus,-54.5848,-5.18942,35.06690713,Postcentral_L,Somatomotor
+LDG1, Left AIns anterior insula,-38.536,12.2761,1.825397591,Insula_L,Ventral_Attention
+LDG2, Left CO central operculum,-43.8259,10.9931,2.115722047,Insula_L,Ventral_Attention
+LDG3, Left FO frontal operculum,-50.5198,12.1348,2.385394005,Frontal_Inf_Oper_L,Ventral_Attention
+LDG4, Left OpIFG opercular part of the inferior frontal gyrus,-56.35,12.1265,3.047333761,Rolandic_Oper_L,Ventral_Attention
+LDG5, Left OpIFG opercular part of the inferior frontal gyrus,-58.7403,11.0493,5.691313449,Rolandic_Oper_L,Ventral_Attention
+LDG6, Left PrG precentral gyrus,-61.1653,10.218,11.22586104,Frontal_Inf_Oper_L,Ventral_Attention
+LDG7, Left PrG precentral gyrus,-61.7202,9.56431,17.23554927,Frontal_Inf_Oper_L,Ventral_Attention
+LDG8, Left PrG precentral gyrus,-60.6439,7.36869,23.88750509,Precentral_L,Somatomotor
+LDG9, Left Cerebral White Matter,-56.5839,7.17335,32.55506113,Precentral_L,Somatomotor
+LDG10, Left Cerebral White Matter,-52.1816,8.66393,36.58233725,Precentral_L,Dorsal_Attention
+LDG11, Left PrG precentral gyrus,-49.2997,8.5776,40.72187797,Precentral_L,Frontoparietal
+LDG12, Left PrG precentral gyrus,-47.242,6.26962,44.75220061,Precentral_L,Frontoparietal
+LGR17, Left MFG middle frontal gyrus,-40.0259,28.8992,39.08449593,Frontal_Mid_L,Frontoparietal
+LGR18, Left MFG middle frontal gyrus,-41.5114,19.6318,41.58087476,Frontal_Mid_L,Default
+LGR19, Left MFG middle frontal gyrus,-42.911,11.1456,45.31234674,Precentral_L,Default
+LGR20, Left PrG precentral gyrus,-45.5226,-2.06948,49.51890809,Precentral_L,Ventral_Attention
+LGR21, Left PrG precentral gyrus,-45.9554,-12.427,49.37649748,Postcentral_L,Somatomotor
+LGR22, Left PoG postcentral gyrus,-43.0224,-20.4321,53.41243196,Postcentral_L,Somatomotor
+LGR23, Left PoG postcentral gyrus,-41.4596,-30.5464,54.76123785,Postcentral_L,Somatomotor
+LGR24, Left SPL superior parietal lobule,-38.9107,-42.6192,55.76671569,Parietal_Inf_L,Dorsal_Attention
+LGR25, Left MFG middle frontal gyrus,-47.3924,28.1354,31.38195405,Frontal_Inf_Tri_L,Frontoparietal
+LGR26, Left MFG middle frontal gyrus,-47.793,21.2035,35.40019695,Frontal_Inf_Oper_L,Frontoparietal
+LGR27, Left MFG middle frontal gyrus,-48.2385,12.71,38.86664504,Frontal_Mid_L,Default
+LGR28, Left PrG precentral gyrus,-49.7701,-1.05289,41.83873678,Precentral_L,Dorsal_Attention
+LGR29, Left PrG precentral gyrus,-53.2219,-10.3974,38.34678643,Postcentral_L,Somatomotor
+LGR30, Left PoG postcentral gyrus,-51.8986,-20.897,40.57523068,Parietal_Inf_L,Somatomotor
+LGR31, Left PoG postcentral gyrus,-46.743,-28.372,42.82180317,Parietal_Inf_L,Dorsal_Attention
+LGR32, Left SMG supramarginal gyrus,-41.3618,-38.8256,48.56999394,Parietal_Inf_L,Dorsal_Attention
+LGR33, Left TrIFG triangular part of the inferior frontal gyrus,-57.7407,24.4482,14.9881161,Frontal_Inf_Tri_L,Default
+LGR34, Left OpIFG opercular part of the inferior frontal gyrus,-57.4044,14.9192,22.26589231,Frontal_Inf_Oper_L,Default
+LGR35, Left PrG precentral gyrus,-56.9153,6.83578,29.59382083,Precentral_L,Somatomotor
+LGR36, Left PrG precentral gyrus,-52.3326,2.40046,31.40068349,Precentral_L,Dorsal_Attention
+LGR37, Left PoG postcentral gyrus,-55.5676,-5.61031,31.3473282,Precentral_L,Somatomotor
+LGR38, Left SMG supramarginal gyrus,-56.5836,-19.3205,33.11087688,Postcentral_L,Ventral_Attention
+LGR39, Left SMG supramarginal gyrus,-51.4707,-27.3181,34.6786718,SupraMarginal_L,Dorsal_Attention
+LGR40, Left SMG supramarginal gyrus,-43.9663,-38.6862,44.57378572,Parietal_Inf_L,Dorsal_Attention
+LGR41, Left OpIFG opercular part of the inferior frontal gyrus,-59.5048,21.5348,6.119400626,Frontal_Inf_Tri_L,Default
+LGR42, Left OpIFG opercular part of the inferior frontal gyrus,-58.4581,11.154,9.497220211,Frontal_Inf_Oper_L,Ventral_Attention
+LGR43, Left PrG precentral gyrus,-60.8296,5.06403,15.83142063,Frontal_Inf_Oper_L,Ventral_Attention
+LGR44, Left PoG postcentral gyrus,-59.4479,-1.65712,21.56244211,Postcentral_L,Somatomotor
+LGR45, Left PoG postcentral gyrus,-61.2257,-10.362,19.71662781,Postcentral_L,Somatomotor
+LGR46, Left SMG supramarginal gyrus,-60.7972,-21.0939,21.74425673,SupraMarginal_L,Ventral_Attention
+LGR47, Left SMG supramarginal gyrus,-54.9918,-30.4654,26.05873919,SupraMarginal_L,Ventral_Attention
+LGR48, Left SMG supramarginal gyrus,-47.5947,-42.276,31.48503403,SupraMarginal_L,Ventral_Attention
+LGR49, Left OpIFG opercular part of the inferior frontal gyrus,-53.5974,15.9573,-6.729026229,Temporal_Pole_Sup_L,Ventral_Attention
+LGR50, Left FO frontal operculum,-59.207,8.95962,-2.81815855,Temporal_Pole_Sup_L,Ventral_Attention
+LGR51, Left STG superior temporal gyrus,-64.1265,2.77117,4.26790552,Temporal_Sup_L,Ventral_Attention
+LGR52, Left STG superior temporal gyrus,-63.8969,-4.05398,9.57875979,Rolandic_Oper_L,Somatomotor
+LGR53, Left STG superior temporal gyrus,-63.3747,-17.3306,6.652541617,Temporal_Sup_L,Somatomotor
+LGR54, Left STG superior temporal gyrus,-61.8678,-28.9597,5.338239927,Temporal_Mid_L,Default
+LGR55, Left STG superior temporal gyrus,-56.4516,-39.1313,11.25248494,Temporal_Mid_L,Somatomotor
+LGR56, Left STG superior temporal gyrus,-51.9363,-51.5015,16.49893525,Temporal_Mid_L,Default
+LGR57, Left TMP temporal pole,-55.6112,17.7794,-13.76114666,Temporal_Pole_Sup_L,Default
+LGR58, Left TMP temporal pole,-59.0462,7.11212,-11.53375044,Temporal_Pole_Sup_L,Somatomotor
+LGR59, Left STG superior temporal gyrus,-60.5007,-2.16579,-6.339459901,Temporal_Sup_L,Somatomotor
+LGR60, Left STG superior temporal gyrus,-61.5848,-10.8821,-4.894062423,Temporal_Mid_L,Default
+LGR61, Left STG superior temporal gyrus,-61.9819,-20.6537,-2.189678136,Temporal_Mid_L,Default
+LGR62, Left STG superior temporal gyrus,-63.4591,-32.4883,-4.233065934,Temporal_Mid_L,Default
+LGR63, Left MTG middle temporal gyrus,-59.0702,-41.5491,1.762647502,Temporal_Mid_L,Default
+LGR64, Left MTG middle temporal gyrus,-55.5871,-54.7603,4.731986713,Temporal_Mid_L,Ventral_Attention

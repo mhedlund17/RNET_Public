@@ -1,0 +1,144 @@
+LA1,Left Amygdala,-16.4237,-5.07062,-16.40241499,Hippocampus_L,n/a
+LA2,Left Amygdala,-21.7419,-6.54064,-15.76236785,Hippocampus_L,n/a
+LA3,Left Hippocampus,-26.7923,-7.60853,-15.57924641,Hippocampus_L,n/a
+LA4,Left Inf Lat Vent,-32.9488,-9.38248,-16.5690622,Hippocampus_L,Ventral_Attention
+LA5,Left Cerebral White Matter,-39.0116,-11.3526,-16.82256591,L_Temporal_WM,Ventral_Attention
+LA6,Left Cerebral White Matter,-42.8741,-12.7999,-18.39635159,L_Temporal_WM,Ventral_Attention
+LA7,Left Cerebral White Matter,-46.2489,-14.3914,-19.02254533,Temporal_Inf_L,Default
+LA8,Left Cerebral White Matter,-52.5243,-15.2561,-19.69044271,Temporal_Mid_L,Default
+LA9,Left Cerebral White Matter,-59.3778,-15.6825,-18.61289696,Temporal_Mid_L,Default
+LA10,Left MTG middle temporal gyrus,-64.9376,-17.406,-16.08752336,Temporal_Mid_L,Default
+LA11,Left MTG middle temporal gyrus,-70.2796,-19.4698,-13.56291584,Temporal_Mid_L,Default
+LA12,,-74.1715,-20.3186,-13.11396831,Temporal_Mid_L,Default
+LB1,Left Hippocampus,-20.6101,-13.4097,-16.0284364,Hippocampus_L,Default
+LB2,Left Hippocampus,-25.6781,-17.19,-14.61227858,Hippocampus_L,Default
+LB3,Left Hippocampus,-30.0071,-18.8018,-15.08054654,Hippocampus_L,n/a
+LB4,Left Hippocampus,-35.5742,-20.7814,-15.85886824,Hippocampus_L,Visual
+LB5,Left Cerebral White Matter,-40.112,-23.0997,-16.48581602,Fusiform_L,Dorsal_Attention
+LB6,Left Cerebral White Matter,-44.5683,-25.0342,-15.14346567,Temporal_Inf_L,Limbic
+LB7,Left Cerebral White Matter,-48.6262,-25.7331,-12.93614615,L_Temporal_WM,Default
+LB8,Left MTG middle temporal gyrus,-53.4484,-28.0187,-9.249951402,Temporal_Mid_L,Default
+LB9,Left STG superior temporal gyrus,-57.8014,-32.7281,-8.725174161,Temporal_Mid_L,Default
+LB10,Left MTG middle temporal gyrus,-63.6527,-34.4816,-5.546394688,Temporal_Mid_L,Default
+LB11,Left MTG middle temporal gyrus,-69.6605,-36.0998,-4.798269328,Temporal_Mid_L,Default
+LB12,,-74.7558,-38.2853,-3.134809428,Temporal_Mid_L,Default
+LC1,Left Cerebral White Matter,-26.8755,-27.2675,-13.9875115,ParaHippocampal_L,Default
+LC2,Left Cerebral White Matter,-32.172,-29.7683,-14.11186233,ParaHippocampal_L,Default
+LC3,Left Cerebral White Matter,-36.9131,-32.2074,-13.91462818,Fusiform_L,Visual
+LC4,Left Cerebral White Matter,-41.8419,-36.0928,-14.64089757,Temporal_Inf_L,Dorsal_Attention
+LC5,Left Cerebral White Matter,-44.2262,-39.463,-12.75652333,Temporal_Inf_L,Dorsal_Attention
+LC6,Left Cerebral White Matter,-47.9094,-42.7348,-12.40019396,Temporal_Inf_L,Dorsal_Attention
+LC7,Left MTG middle temporal gyrus,-52.009,-46.0559,-14.09666836,Temporal_Inf_L,Frontoparietal
+LC8,Left MTG middle temporal gyrus,-57.4724,-47.7042,-12.2916152,Temporal_Inf_L,Frontoparietal
+LC9,Left MTG middle temporal gyrus,-66.1836,-49.1173,-5.754150263,Temporal_Mid_L,Default
+LC10,,-70.7265,-50.8675,-3.003672424,Temporal_Mid_L,Frontoparietal
+LC11,,-75.1452,-52.4641,-0.079885853,Temporal_Mid_L,n/a
+LC12,,-79.7722,-54.2149,1.264138277,Temporal_Mid_L,n/a
+LD1,Left Cerebral White Matter,-32.9762,15.7197,-5.981072012,Insula_L,Frontoparietal
+LD2,Left AIns anterior insula,-38.4315,16.9572,-5.589600255,Insula_L,Ventral_Attention
+LD3,Left AIns anterior insula,-43.1485,18.14,-3.430254432,Frontal_Inf_Orb_L,Ventral_Attention
+LD4,Left FO frontal operculum,-49.1002,20.083,-0.811996164,Frontal_Inf_Tri_L,Default
+LD5,Left Cerebral White Matter,-55.0654,22.2587,0.606731695,Frontal_Inf_Tri_L,Default
+LD6,Left TrIFG triangular part of the inferior frontal gyrus,-59.8186,23.2826,3.376734821,Frontal_Inf_Tri_L,Default
+LD7,,-63.9297,24.7663,4.576377603,Frontal_Inf_Tri_L,Default
+LD8,,-69.0267,26.6995,6.962499191,Frontal_Inf_Tri_L,n/a
+LD9,,-72.4174,28.9006,8.293695703,Frontal_Inf_Tri_L,n/a
+LD10,,-77.0235,31.3145,9.490992484,n/a,n/a
+LD11,,-78.5181,32.2735,11.87564125,n/a,n/a
+LD12,,-84.0493,33.4972,9.220961889,n/a,n/a
+LF1,Left ACgG anterior cingulate gyrus,-5.9512,36.6485,2.516888615,Cingulum_Ant_L,Default
+LF2,Left Cerebral White Matter,-11.578,35.8449,2.478457046,L_Frontal_WM,Default
+LF3,Left Cerebral White Matter,-18.8877,36.3204,1.939594273,L_Frontal_WM,n/a
+LF4,Left Cerebral White Matter,-25.2658,35.8671,1.726504765,L_Frontal_WM,Ventral_Attention
+LF5,Left Cerebral White Matter,-31.0426,35.2044,2.231656486,Frontal_Inf_Tri_L,Ventral_Attention
+LF6,Left Cerebral White Matter,-38.1503,33.3861,2.950331396,Frontal_Inf_Tri_L,Ventral_Attention
+LF7,Left Cerebral White Matter,-44.5468,33.2531,5.097568823,Frontal_Inf_Tri_L,Frontoparietal
+LF8,Left Cerebral White Matter,-49.4032,33.7056,6.811378056,Frontal_Inf_Tri_L,Frontoparietal
+LF9,Left TrIFG triangular part of the inferior frontal gyrus,-54.8058,33.36,9.249820715,Frontal_Inf_Tri_L,Default
+LF10,,-58.9048,35.6221,10.2855569,Frontal_Inf_Tri_L,Default
+LF11,,-62.9688,36.7212,10.34180877,Frontal_Inf_Tri_L,n/a
+LF12,,-67.3002,37.5819,10.87091485,Frontal_Inf_Tri_L,n/a
+LG1,Left Cerebral White Matter,-6.47992,19.6593,25.8095128,Cingulum_Ant_L,Ventral_Attention
+LG2,Left Cerebral White Matter,-12.6413,19.5479,24.00638118,L_Frontal_WM,Ventral_Attention
+LG3,Left Cerebral White Matter,-17.398,18.8906,22.78222477,L_Frontal_WM,Ventral_Attention
+LG4,Left Cerebral White Matter,-23.5122,19.4447,20.50665402,L_Frontal_WM,n/a
+LG5,Left Cerebral White Matter,-29.2793,19.2687,19.61594659,L_Frontal_WM,n/a
+LG6,Left Cerebral White Matter,-35.8586,18.8959,19.09097272,L_Frontal_WM,Frontoparietal
+LG7,Left Cerebral White Matter,-42.5899,19.2527,19.31881035,Frontal_Inf_Tri_L,Frontoparietal
+LG8,Left Cerebral White Matter,-48.9832,19.2769,18.33406677,Frontal_Inf_Tri_L,Frontoparietal
+LG9,Left Cerebral White Matter,-54.7215,18.8007,16.90543439,Frontal_Inf_Oper_L,Default
+LG10,Left Cerebral White Matter,-59.5032,20.8355,15.8842947,Frontal_Inf_Oper_L,Default
+LG11,,-64.3934,22.349,15.88774152,Frontal_Inf_Tri_L,Default
+LG12,,-68.4714,23.0128,16.04578571,Frontal_Inf_Tri_L,n/a
+LH1,Left PCgG posterior cingulate gyrus,-4.46756,-37.3218,31.92906178,Cingulum_Post_L,Default
+LH2,Left Cerebral White Matter,-10.6496,-37.6276,32.16567565,Cingulum_Post_L,Default
+LH3,Left Cerebral White Matter,-15.2071,-37.8386,31.98998657,L_Parietal_WM,Default
+LH4,Left Cerebral White Matter,-20.4983,-37.4618,31.68060383,L_Parietal_WM,Ventral_Attention
+LH5,Left Cerebral White Matter,-25.9135,-37.1416,29.81877418,L_Parietal_WM,n/a
+LH6,Left Cerebral White Matter,-30.9206,-36.4588,28.49239409,L_Parietal_WM,n/a
+LH7,Left Cerebral White Matter,-35.5189,-35.1439,25.6870679,L_Parietal_WM,Somatomotor
+LH8,Left Cerebral White Matter,-40.3512,-33.9339,22.87778588,L_Parietal_WM,Somatomotor
+LH9,Left PO parietal operculum,-44.919,-33.0147,20.75783198,Temporal_Sup_L,Somatomotor
+LH10,Left PT planum temporale,-51.088,-33.2611,19.57688367,Temporal_Sup_L,Ventral_Attention
+LH11,,-57.9158,-33.2705,21.0478453,Temporal_Sup_L,Ventral_Attention
+LH12,Left PT planum temporale,-64.8178,-33.634,20.19167996,Temporal_Sup_L,Ventral_Attention
+RA1,Right Amygdala,16.9456,-5.07986,-15.68188905,ParaHippocampal_R,n/a
+RA2,Right Amygdala,21.5156,-5.74989,-17.42661053,Hippocampus_R,n/a
+RA3,Right Amygdala,27.0857,-5.85903,-18.31353885,Hippocampus_R,n/a
+RA4,Right Cerebral White Matter,32.8403,-6.55516,-19.55493864,Hippocampus_R,n/a
+RA5,Right Cerebral White Matter,37.51,-7.63417,-20.3784273,R_Temporal_WM,Limbic
+RA6,Right Cerebral White Matter,41.0779,-8.87056,-21.47118304,R_Temporal_WM,Limbic
+RA7,Right Cerebral White Matter,46.0973,-9.56752,-23.37286409,Temporal_Inf_R,Default
+RA8,Right MTG middle temporal gyrus,53.0884,-11.6964,-25.26174606,Temporal_Inf_R,Default
+RA9,Right MTG middle temporal gyrus,59.2026,-12.7907,-26.70877819,Temporal_Inf_R,Default
+RA10,,65.5233,-13.0915,-26.98618894,Temporal_Inf_R,Default
+RA11,,70.4998,-13.9759,-26.10846656,Temporal_Inf_R,Default
+RA12,,75.9407,-14.3149,-25.95007043,Temporal_Mid_R,n/a
+RB1,Right Inf Lat Vent,23.4476,-10.5269,-16.8219219,Hippocampus_R,n/a
+RB2,Right Hippocampus,27.482,-13.3809,-15.21792832,Hippocampus_R,n/a
+RB3,Right Hippocampus,32.2406,-17.7016,-15.15259898,Hippocampus_R,n/a
+RB4,Right Hippocampus,35.5946,-21.1939,-14.29245112,Hippocampus_R,Visual
+RB5,Right Cerebral White Matter,39.3025,-25.2351,-13.73536259,R_Temporal_WM,Visual
+RB6,Right Cerebral White Matter,43.0125,-29.7745,-12.85990409,R_Temporal_WM,Limbic
+RB7,Right Cerebral White Matter,46.9233,-33.4445,-13.33571522,R_Temporal_WM,Dorsal_Attention
+RB8,Right Cerebral White Matter,53.7091,-37.1912,-11.31775348,Temporal_Mid_R,Frontoparietal
+RB9,Right Cerebral White Matter,60.2481,-39.0834,-7.567556679,Temporal_Inf_R,Frontoparietal
+RB10,Right MTG middle temporal gyrus,64.0762,-39.8393,-2.794145815,Temporal_Mid_R,Frontoparietal
+RB11,Right MTG middle temporal gyrus,69.0552,-42.8532,-2.212064382,Temporal_Mid_R,Default
+RB12,,73.5924,-45.6638,-3.559959084,Temporal_Mid_R,Frontoparietal
+RE1,Right MCgG middle cingulate gyrus,3.22571,20.5916,36.79872214,Cingulum_Mid_R,Ventral_Attention
+RE2,Right SMC supplementary motor cortex,3.23337,20.9674,41.27212622,Cingulum_Mid_R,Ventral_Attention
+RE3,Right Cerebral White Matter,5.04291,23.3761,44.43668044,Frontal_Sup_Medial_R,Frontoparietal
+RE4,Right Cerebral White Matter,5.75452,25.6431,48.9895292,Supp_Motor_Area_R,Frontoparietal
+RE5,Right Cerebral White Matter,7.17592,28.0636,54.19265116,Frontal_Sup_Medial_R,Default
+RE6,Right SFG superior frontal gyrus,7.98512,30.9353,60.1578902,Frontal_Sup_Medial_R,Default
+RE7,,9.43112,32.2189,64.12594696,Frontal_Sup_Medial_R,Default
+RE8,,11.1171,34.2064,67.67518046,Frontal_Sup_Medial_R,n/a
+RE9,,12.629,35.9394,72.42561548,Frontal_Sup_Medial_R,n/a
+RE10,,12.9464,37.6865,77.16124664,n/a,n/a
+RE11,,14.8266,37.4223,81.93466621,n/a,n/a
+RE12,,16.2896,38.0384,84.42319204,n/a,n/a
+RF1,Right Cerebral White Matter,4.9105,21.5096,29.19716334,Cingulum_Ant_R,Ventral_Attention
+RF2,Right SMC supplementary motor cortex,9.71649,22.7306,33.88503409,Cingulum_Mid_R,Ventral_Attention
+RF3,Right Cerebral White Matter,13.3572,22.5105,34.46337623,R_Frontal_WM,Ventral_Attention
+RF4,Right Cerebral White Matter,18.1476,21.5726,36.61885878,R_Frontal_WM,Default
+RF5,Right Cerebral White Matter,22.9578,20.8687,37.97521465,Frontal_Sup_R,Default
+RF6,Right Cerebral White Matter,29.3725,23.4482,40.44828178,Frontal_Mid_R,Default
+RF7,Right Cerebral White Matter,35.2392,26.7468,41.01012015,Frontal_Mid_R,Frontoparietal
+RF8,Right MFG middle frontal gyrus,40.757,27.703,42.54177716,Frontal_Mid_R,Frontoparietal
+RF9,,46.0625,28.5424,45.21348453,Frontal_Mid_R,Frontoparietal
+RF10,,49.6214,29.2513,46.47137587,Frontal_Mid_R,Frontoparietal
+RF11,,53.5378,30.1107,49.15143975,Frontal_Mid_R,n/a
+RF12,,57.4641,30.6727,50.62565803,Frontal_Mid_R,n/a
+RG1,Right MCgG middle cingulate gyrus,3.36453,10.3223,27.37863055,R_Frontal_WM,Frontoparietal
+RG2,Right Cerebral White Matter,9.84725,9.57999,26.30088087,R_Frontal_WM,Frontoparietal
+RG3,Right Cerebral White Matter,16.9862,9.06083,25.66658922,Caudate_R,n/a
+RG4,Right Cerebral White Matter,24.1533,8.2569,24.29415651,R_Frontal_WM,n/a
+RG5,Right Cerebral White Matter,29.2571,7.68461,22.68744653,R_Frontal_WM,Dorsal_Attention
+RG6,Right Cerebral White Matter,34.4733,6.97454,21.05854639,R_Frontal_WM,Dorsal_Attention
+RG7,Right Cerebral White Matter,39.3526,4.98125,21.19702921,R_Frontal_WM,Dorsal_Attention
+RG8,Right OpIFG opercular part of the inferior frontal gyrus,44.3761,2.49359,21.69673381,R_Frontal_WM,Dorsal_Attention
+RG9,Right OpIFG opercular part of the inferior frontal gyrus,48.6079,2.84709,22.11175711,R_Frontal_WM,Dorsal_Attention
+RG10,Right PrG precentral gyrus,52.748,2.77126,22.48977157,Precentral_R,Dorsal_Attention
+RG11,Right Cerebral White Matter,57.1399,2.7519,20.07833897,Postcentral_R,Somatomotor
+RG12,Right PrG precentral gyrus,62.8777,3.93455,15.35023597,Postcentral_R,Somatomotor
