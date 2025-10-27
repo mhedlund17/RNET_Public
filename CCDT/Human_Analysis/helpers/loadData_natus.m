@@ -11,7 +11,7 @@ function [dat,Nsamp,fs,uch,chnm] = loadData_natus(varargin)
 %   DR 10/2018
 
 % parameters
-ddir = '/mnt/sdb1/CCDT/eeg/'; % data directory
+ddir = '/sample_raw_data/'; % data directory
 subj = []; % subject
 sess = []; % session date
 stime = []; % session time (leave empty for all session times)
@@ -99,3 +99,4 @@ for ii = 1:Nst-1
     Nsamp = [Nsamp; size(datc{ii},1)]; % samples in each session time
 end
 dat = cat(1,datc{:}); % concatenate data from multiple session times if more than one
+
