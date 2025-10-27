@@ -78,7 +78,7 @@ Demo will go through full analysis using raw data from a single subject. This wi
 
 The demo can be expaneded to analyze the full dataset from FigShare. After downloading this dataset, simply change the raw data directories in `loadData_natus.m`, `CCDT_graph_features.m`, `CCDT_power_features.m`, and `CCDT_trPLV.m`. Then uncomment all lines in `CCDTdatabase.m` to include all subjects and task sessions in the analysis. 
 
-# Pseudocode for Demo
+### Pseudocode for Demo
 ```
 %add matlab pseudocode for running scripts and descriptive comments about the purpose of each step as well as the expected input and output.
 ---
