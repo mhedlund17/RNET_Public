@@ -11,7 +11,7 @@ iev = 1; % event (1 = trial start cue, 2 = go cue, 3 = response)
 win = [-500 0]; % perievent window (ms)
 shiftDat = 0; %1 = create randomly shifted null data, 0= use regular data
 fbands = [3 12; 12 30; 30 55; 70 110]; % frequency band ranges (Hz)
-p.ddir = '/CCDT/eeg/'; % raw data directory
+p.ddir = '/sample_raw_data/'; % raw data directory
 p.subj = []; % subject (leave empty to batch process all subjects in database)
 p.sess = []; % session date (leave empty to choose automatically)
 p.stime = []; % session time (leave empty for all session times)
@@ -163,5 +163,6 @@ end
 if saveon
     save([odir svnm,'.mat'],'LT*','NFstruct')
 end
+
 
 end
