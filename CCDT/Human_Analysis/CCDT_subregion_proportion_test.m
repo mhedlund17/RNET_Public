@@ -3,7 +3,6 @@
 % set up
 featType = 1; % =0 for qexp & pow, =1 for qexp, =2 for pow
 load("feature_detail_file.mat") %load file saved in CCDT_feature_details.m (with ssID and gch variables)
-polarity = 1; %used to specify anatomical labels based on common average rereferencing in patient_loc file.
 load patient_loc_120623 %anatomical localizations
 db = CCDTdatabase; %subject database
 Nsubj = height(db);
@@ -54,8 +53,8 @@ for isubj = 1:Nsubj
 
     %match selected channel name to index in patient_loc file
     sig_chs_idx = zeros(size(sig_chs)); %index of significant channels
-    %patient_loc(polarity).session(isubj).type~=0 fixes issue w/ subj 18 in patient_loc file
-    ch_names = patient_loc(polarity).session(isubj).names(patient_loc(polarity).session(isubj).type~=0,1);
+    %patient_loc(1).session(isubj).type~=0 fixes issue w/ subj 18 in patient_loc file
+    ch_names = patient_loc(1).session(isubj).names(patient_loc(1).session(isubj).type~=0,1);
     for ch = 1:length(sig_chs)
         chidx = find(strcmp(ch_names,sig_chs(ch)));
         if ~isempty(chidx)
@@ -69,9 +68,9 @@ for isubj = 1:Nsubj
     sig_chs_idx_all(sig_chs_idx_all==0) = []; %remove invalid channels
 
     % get current subj rois
-    c_gm_wm_rois = patient_loc(polarity).session(isubj).gm_wm_rois(patient_loc(polarity).session(isubj).type~=0);
-    c_wm_subrois = int32(patient_loc(polarity).session(isubj).eve);
-    c_gm_subrois = patient_loc(polarity).session(isubj).seg_ID(patient_loc(polarity).session(isubj).type~=0);
+    c_gm_wm_rois = patient_loc(1).session(isubj).gm_wm_rois(patient_loc(1).session(isubj).type~=0);
+    c_wm_subrois = int32(patient_loc(1).session(isubj).eve);
+    c_gm_subrois = patient_loc(1).session(isubj).seg_ID(patient_loc(1).session(isubj).type~=0);
     
     %get composite regions
     all_gm_wm_rois = [all_gm_wm_rois; c_gm_wm_rois];
@@ -190,4 +189,5 @@ ylabel('% of TCWM Nodes from Subregion')
 legend('preparatory','anticipatory')
 xlim([0.5,6.5])
 scatter([1,4],[47,47],'*','k')
+
 
