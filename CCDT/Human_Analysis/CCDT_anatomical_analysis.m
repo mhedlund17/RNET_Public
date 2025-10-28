@@ -788,3 +788,134 @@ if addAsterisk
     end
 end
 
+%% 6. Intrinsic communicability of anatomical regions and subregions
+% plot distribution of z-scored features values in each region across all trials
+
+% run this section for each composite region of interest
+regIdx = 1; % 1 = FrGM 2 = TPGM 3 = PLGM 4 = TCWM 5 = FAWM 6 = TAWM 7 = PLWM 8 = ComWM
+
+%load patient loc data & fix issue with subj 18
+load patient_loc_120623.mat
+goodchs = patient_loc(1).session(18).type~=0;
+patient_loc(1).session(18).names = patient_loc(1).session(18).names(goodchs);
+patient_loc(1).session(18).gm_wm_rois = patient_loc(1).session(18).gm_wm_rois(goodchs);
+patient_loc(1).session(18).gm_wm_labels = patient_loc(1).session(18).gm_wm_labels(goodchs);
+patient_loc(1).session(18).seg_ID = patient_loc(1).session(18).seg_ID(goodchs);
+
+aQv = avgQ_allFeats;
+fIDq = fIDq_allFeats;
+gchQ = gchQ_allFeats;
+ssIDq = ssIDq_allFeats;
+
+code_regions_qexp = zeros(size(aQv));
+%generate code_regions variable
+for i = 1:length(avgQ_allFeats)
+    iSubj = ssIDq(i);
+    chIdx = find(strcmp(patient_loc(1).session(iSubj).names, gchQ(i)));
+    if ~isempty(chIdx)
+        code_regions_qexp(i) = patient_loc(1).session(iSubj).gm_wm_rois(chIdx); 
+    end
+end
+
+region_labels = {'FrGM','TPGM','PLGM','TCWM','FAWM','TAWM','PLWM','ComWM'};
+
+% plot subregions in different colors - get subregion labels
+% gm & wm ROIs
+EVE_roi_WM_csv = EVE_roi_WM_csv{:,2};
+EVE_roi_WM_csv{end+1} = 'n/a';
+seg_ID_list = [frontal_cortex,temporoparietal_cortex,paralimbic_GM,'n/a'];
+
+%subregion codes
+FrGM_sub = [1:7]';
+TPGM_sub = [8:15]';
+PLGM_sub = [16:22]';
+TCWM_sub = [36,96; 7,69; 6,68; 38,98; 37,97; 35,95];
+FAWM_sub = [46,106; 5,67; 21,82; 4,66; 24,85; 3,65; 43,103; 42,102];
+TAWM_sub = [8,70; 12,74; 19,80; 44,104; 20,81; 18,79; 1,64; 45,105];
+PLWM_sub = [39,99; 40,100; 41,101; 11,73; 47,107];
+ComWM_sub = [52,112; 51,111; 53,113];
+subregion_codes = {FrGM_sub, TPGM_sub, PLGM_sub, TCWM_sub, FAWM_sub, TAWM_sub,PLWM_sub,ComWM_sub};
+
+% label
+subregionIdx = zeros(size(gchQ));
+gchQ_gmwmlabel = cell(size(gchQ));
+for i = 1:length(gchQ)
+    iSubj = ssIDq(i);
+    iReg = code_regions_qexp(i);
+    chIdx = find(strcmp(patient_loc(1).session(iSubj).names, gchQ(i)));
+    if ~isempty(chIdx)
+    if iReg<=3 %gm region
+        sub_code = patient_loc(1).session(iSubj).seg_ID(chIdx);
+        if sub_code>0
+            subregionIdx(i) = find(subregion_codes{iReg}==sub_code);
+        end
+    else %wm region
+        sub_code = patient_loc(1).session(iSubj).eve(chIdx);
+        if sub_code>0
+            [subi,subj] = find(subregion_codes{iReg}==sub_code);
+            if isempty(subi)
+                x=1;
+            else
+                subregionIdx(i) = subi;
+            end
+        end
+    end
+    end
+end
+
+% set up colors for plot
+color_assignment = [1,0,0; .3,.73,.05; .05,.4,.73; .9,.53,.1; 1,0,1; .27,.8,.85; .8,0,.5; 1,1,0]; %white background
+xtick_vals = [1,2.2,3.4,4.6,5.8,7,8.2,9.4,10.6,11.8];
+subregion_labels = {'All Subregions','1','2','3','4','5','6','7','8'};
+color_vect = zeros(length(subregionIdx),3);
+for i = 1:length(subregionIdx)
+    if subregionIdx(i)>0
+        color_vect(i,:)=color_assignment(subregionIdx(i),:);
+    end
+end
+
+%plot intrinsic qexp for subregions
+plot_feats = aQv(code_regions_qexp == regIdx);
+plot_subregionIdx = subregionIdx(code_regions_qexp == regIdx);
+plot_color_vect = color_vect(code_regions_qexp == regIdx,:);
+plot_feats(plot_subregionIdx==0) = [];
+plot_color_vect(plot_subregionIdx==0,:) = [];
+plot_subregionIdx(plot_subregionIdx==0) = [];
+
+figure(3)
+hold on
+set(gcf,"Color","white")
+numSubs = height(subregion_codes{regIdx});
+for i = 1:numSubs+1 %subregion
+    figure(3)
+    if i==1
+        y = plot_feats;
+        x = ones(length(y),1);
+        swarmchart(x*xtick_vals(i),y,x*20,plot_color_vect,'o',"MarkerFaceColor","flat")
+        box off
+    else
+        y = plot_feats(plot_subregionIdx==i-1);
+        x = ones(length(y),1);
+        swarmchart(x*xtick_vals(i),y,x*20,color_assignment(i-1,:),'o',"MarkerFaceColor","flat")
+        box off
+    end
+    ylim([-1.5,2.5])
+    xlim([0,xtick_vals(i)+1])
+    xticks(xtick_vals)
+    xticklabels(subregion_labels)
+    if blackBackground
+        yline(0,'w','LineStyle','--',"LineWidth",1.5)
+    else
+        yline(0,'k','LineStyle','--',"LineWidth",1.5)
+    end
+    if ~isempty(y)
+        p(1,i) = signrank(y,0);
+        if p(1,i) < 0.001
+            scatter(xtick_vals(i),2.25,'*','k')
+        elseif p(1,i) < 0.01
+            scatter(xtick_vals(i),2.25,'+','k')
+        elseif p(1,i) < 0.05
+            scatter(xtick_vals(i),2.25,'o','k')
+        end
+    end
+end
