@@ -50,15 +50,17 @@ Calculates and saves trial-by-trial spectral power metrics.
 Calculates and saves time-resolved phase locking value.  
 
 
-<u>**CCDTanalyze:**</u>  
-Performs feature selection to identify which features are correlated with trial-by-trial response time.  
-&nbsp;&nbsp;• 1st section performs regression analysis.  
-&nbsp;&nbsp;• 2nd section summarizes information about selected features (subject, frequency band, electrode).  
+<u>**CCDT_feature_select:**</u>  
+Performs feature selection to identify which features are correlated with trial-by-trial response time.
 
 
 <u>**CCDT_Classifier:**</u>  
 Uses selected features as input for an SVM classifier to assess performance on classifying trials as fast or slow.  
 This is used to determine the best feature space and to verify behavioral specificity with null comparisons.  
+
+
+<u>**CCDT_feature_details:**</u>  
+Summarizes information about selected features (subject, frequency band, electrode).  
 
 
 <u>**CCDT_anatomical_analysis:**</u>  
@@ -80,6 +82,96 @@ The demo can be expaneded to analyze the full dataset from FigShare. After downl
 
 ### Pseudocode for Demo
 ```
-%add matlab pseudocode for running scripts and descriptive comments about the purpose of each step as well as the expected input and output.
+% matlab pseudocode for running scripts and descriptive comments about the purpose of each step as well as the expected input and output.
+
+%% 1. Define subjects for analysis 
+% Inside CCDTdatabase.m: uncomment lines only for subjects/sessions to 
+% include in analysis (for Demo, only line 1 should be uncommented).
+% Save this file.
+
+%% 2. Generate features 
+% Preprocess raw iEEG data and calculate trial-by-trial features
+
+% Inside CCDT_graph_features.m and CCDT_power_features.m: edit parameters
+% (such as time period in trial, frequency bands, preprocessing options) 
+% and define output directory and file name to save features.
+
+run("CCDT_graph_features.m")
+% output: file saved with trial-by-trial graph communicability features and
+% regression for 
+
+run("CCDT_power_features.m")
+% output: file saved with trial-by-trial spectral power features
+
+%add info about time-resolved PLV?
+
+% repeat for each cue to calculate features in preparatory and anticipatory periods
+%% 3. Feature Selection
+% Robust feature selection regression: finds features significantly correlated to
+% trial-by-trial reaction time for random 80% of trials, bootstrapped 1000x)
+
+% Inside CCDT_feature_select.m: edit parameters (such as percent of trials 
+% to train on & # bootstrap iterations), define input files/directories 
+% (communicability & power features saved in step 2), and define output
+% directory and file name to save regressions results from each bootstrap
+% iteration.
+
+run("CCDT_feature_select.m")
+% output: regression results for each bootstrap iteration for both power
+% and communicability features.
+
+% Identify best feature space: Define a feature space as features with a
+% significant correlation to reaction time in at least X percent of
+% bootstrap iterations. Use an SVM classifier to assess how well this
+% feature space performs at classifying trials as "fast" or "slow". Assess
+% this performance over multiple values of the threshold X. Choose your
+% final X to be the value with the best performance that avoids overfitting 
+% and underfitting. (In manuscript, we chose X = 30%.)
+
+% Inside CCDT_Classifier.m: edit parameters, define input files/directories 
+% (communicability & power features saved in step 2, regression results from 
+% CCDT_feature_select.m), and define output directory and file name to save 
+% SVM performance results.
+
+thresholds = 0.05:0.05:1; % percentages as a decimal
+for X = thresholds
+    % Inside CCDT_Classifier.m: set percThresh = X
+    run("CCDT_Classifier.m")
+    % output: SVM performance (AUC) for threshold X
+end
+
+%% 4. Get details for selected features
+% For optimal selected features, save electrode name, frequency band, 
+% and average feature value across all trials. 
+
+% Inside CCDT_feature_details.m, edit parameters (percent threshold), 
+% define input files/directories (communicability & power features saved in
+% step 2, regression results from step 3), and define output directory and 
+% file name to save feature details.
+run("CCDT_feature_details.m")
+% output: feature details for both power and communicability features
+
+%% 5. Composite anatomical region analysis
+% Analyze anatomical relationships of selected features and identify
+% features consistently correlated with RT across all subjects
+
+% Inside CCDT_anatomical_analysis.m, edit parameters (percent threshold, 
+% plot options), define input files/directories (communicability & power 
+% features saved in step 2, regression results from step 3, feature details 
+% from step 4), and define output directory and file name to save results.
+run("CCDT_anatomical_analysis.m")
+% output: save data from heatmap figure showing features robustly
+% correlated with RT across all subjects and XXX (info about intrinsic
+% qexp?)
+
+%% 6. Anatomical subregion analysis
+% Analyze proportional representation of anatomical subregions with
+% Chi-squared test of proportions.
+
+% Inside CCDT_subregion_proportion_analysis.m: edit parameters (feature type), 
+% define input files/directories (selected featuredetails from step 4).
+run("CCDT_subregion_proportion_analysis.m")
+% output: statistical test results for each subregion in unique_subregions variable
+
 ---
 
