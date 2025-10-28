@@ -15,9 +15,9 @@ gfname = ''; % graph communicability feature file name
 
 % load feature selection info
 sfeat_dir = ''; %feature selection directory
-sfeat_fname = ''; %feature selection file name - files saved in CCDTanalyze section 1
+sfeat_fname = ''; %feature selection file name - files saved in CCDT_feature_select.m
 sfeatInfo_dir = ''; %directory
-sfeatInfo_fname = ''; %file saved in 2nd section of CCDTanalyze
+sfeatInfo_fname = ''; %file saved in CCDT_feature_details.m
 load([sfeatInfo_dir sfeatInfo_fname])
 percThresh = 0.30; % percentage, as a decimal 
 % percent threshold: features with a significant regression slope in
@@ -787,3 +787,4 @@ if addAsterisk
         end
     end
 end
+
