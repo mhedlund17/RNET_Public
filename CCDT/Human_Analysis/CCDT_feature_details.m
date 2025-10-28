@@ -1,4 +1,6 @@
-%% save details about selected features
+% CCDT_feature_details
+
+% save details about selected features
 % fPv --> mean z-scored value of selected power features over fastest third of trials
 % fIDp --> fband of each selected power feature
 % ssIDp --> subject/session number of selected power feature
@@ -6,14 +8,33 @@
 % aPv --> mean z-scored value of selected power features over all trials
 % fQv, fIDq, ssIDq, sQv, aQv --> same variable meanings, but for qexp features
 
+% parameters
 % percent threshold: features with a significant regression slope in
 % more than this percentage of bootstrap iterations will be included in
 % the selected feature space. The threshold used for analysis in paper was
 % chosen by evaluating SVM performance in predicting fast vs slow trials
 % for 20 thresholds between 0 and 100%. 
 percThresh = .3; % percentage, as a decimal
-savedir2 = ''; %output directory
-savefname2 = ''; %output file name
+savedir = ''; %output directory
+savefname = ''; %output file name
+db = CCDTdatabase;
+fbands = [3 12; 12 30; 30 55; 70 110]; 
+Nsubj = size(db,1); Nbands = size(fbands,1)+1; Nfreq = height(fbands);
+
+% load feature selection stats
+fselect_dir = ''; % directory with feature selection file
+fselect_fname = ''; % feature selection file name
+load([fselect_dir fselect_fname],"sigPow","sigCom");
+
+% load NFstruct for feature data and behavStruct for RT info
+pdir = ''; % feature directory
+pfname = ''; % power feature file name 
+gfname = ''; % graph communicability feature file name
+load([pdir pfname],"NFstruct"); 
+NFstructP = NFstruct;
+load([pdir gfname],"NFstruct","behavStruct");
+NFstructQ = NFstruct;
+clear NFstruct;
 
 % identify features above selection threshold 
 for isubj = 1:Nsubj
@@ -77,4 +98,4 @@ end
 
 % save details about selected features
 
-save([savedir2 savefname2],'fPv','sPv','fIDp','ssIDp','gchP','fQv','sQv','aQv','aPv','fIDq','ssIDq','gchQ')
+save([savedir savefname],'fPv','sPv','fIDp','ssIDp','gchP','fQv','sQv','aQv','aPv','fIDq','ssIDq','gchQ')
