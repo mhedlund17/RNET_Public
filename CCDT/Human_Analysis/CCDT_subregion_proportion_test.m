@@ -2,7 +2,7 @@
 
 % set up
 featType = 1; % =0 for qexp & pow, =1 for qexp, =2 for pow
-load("preparatory file name") %load file saved in 2nd section of CCDTanalyze (with ssID and gch variables)
+load("feature_detail_file.mat") %load file saved in CCDT_feature_details.m (with ssID and gch variables)
 polarity = 1; %used to specify anatomical labels based on common average rereferencing in patient_loc file.
 load patient_loc_120623 %anatomical localizations
 db = CCDTdatabase; %subject database
@@ -190,3 +190,4 @@ ylabel('% of TCWM Nodes from Subregion')
 legend('preparatory','anticipatory')
 xlim([0.5,6.5])
 scatter([1,4],[47,47],'*','k')
+
