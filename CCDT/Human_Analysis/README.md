@@ -76,7 +76,7 @@ Will not be run independently — they are called within interactive files.
 
 ---
 ## Demo & Analysis instuctions
-Demo will go through full analysis using raw data from a single subject. This will take approximately XX minutes/hours to run (tested on Windows 11, Intel Core i9-12900K, 2500MHz, 14Cores, 16GB RAM). 
+Demo will go through full analysis using raw data from a single subject. This will take approximately 2 hours to run (tested on Windows 11, Intel Core i9-12900K, 2500MHz, 14Cores, 16GB RAM). 
 
 The demo can be expaneded to analyze the full dataset from FigShare. After downloading this dataset, simply change the raw data directories in `loadData_natus.m`, `CCDT_graph_features.m`, `CCDT_power_features.m`, and `CCDT_trPLV.m`. Then uncomment all lines in `CCDTdatabase.m` to include all subjects and task sessions in the analysis. 
 
@@ -92,7 +92,7 @@ The demo can be expaneded to analyze the full dataset from FigShare. After downl
 %% 2. Generate features 
 % Preprocess raw iEEG data and calculate trial-by-trial features
 
-% Inside CCDT_graph_features.m and CCDT_power_features.m: edit parameters
+% Inside CCDT_graph_features.m, CCDT_power_features.m: edit parameters 
 % (such as time period in trial, frequency bands, preprocessing options) 
 % and define output directory and file name to save features.
 
@@ -102,8 +102,6 @@ run("CCDT_graph_features.m")
 
 run("CCDT_power_features.m")
 % output: file saved with trial-by-trial spectral power features
-
-%add info about time-resolved PLV?
 
 % repeat for each cue to calculate features in preparatory and anticipatory periods
 %% 3. Feature Selection
@@ -153,7 +151,8 @@ run("CCDT_feature_details.m")
 
 %% 5. Composite anatomical region analysis
 % Analyze anatomical relationships of selected features and identify
-% features consistently correlated with RT across all subjects
+% features consistently correlated with RT across all subjects. Analyze
+% intrinsic communicability values of anatomical regions.
 
 % Inside CCDT_anatomical_analysis.m, edit parameters (percent threshold, 
 % plot options), define input files/directories (communicability & power 
@@ -161,8 +160,8 @@ run("CCDT_feature_details.m")
 % from step 4), and define output directory and file name to save results.
 run("CCDT_anatomical_analysis.m")
 % output: save data from heatmap figure showing features robustly
-% correlated with RT across all subjects and XXX (info about intrinsic
-% qexp?)
+% correlated with RT across all subjects and plot intrinsic communicability
+% of each anatomical subregion
 
 %% 6. Anatomical subregion analysis
 % Analyze proportional representation of anatomical subregions with
@@ -172,6 +171,27 @@ run("CCDT_anatomical_analysis.m")
 % define input files/directories (selected featuredetails from step 4).
 run("CCDT_subregion_proportion_analysis.m")
 % output: statistical test results for each subregion in unique_subregions variable
+
+%% 7. Calculate time-resolved PLV
+% Preprocess raw iEEG data and calculate time-resolved PLV
+
+% Inside CCDT_trPLV.m: edit parameters (such as time period in trial, 
+% frequency bands, preprocessing options) and define output directory and 
+% file name to save data.
+
+run("CCDT_trPLV.m")
+% output: file saved with time-resolved PLV averaged over trials
+% corresponding to the following conditons:
+%   1. Fastest 1/3 of trials
+%   2. Slowest 1/3 of trials
+%   3. All non-error trials
+%   4. Middle 1/3 of trials
+
+% repeat for each cue to calculate features in preparatory and anticipatory periods
+
+%% 7. Time-resolved PLV Analysis
+
+```
 
 ---
 
