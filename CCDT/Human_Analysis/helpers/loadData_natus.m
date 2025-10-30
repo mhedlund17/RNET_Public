@@ -11,7 +11,7 @@ function [dat,Nsamp,fs,uch,chnm] = loadData_natus(varargin)
 %   DR 10/2018
 
 % parameters
-ddir = '/sample_raw_data/'; % data directory
+ddir = '/sample_raw_data/'; % raw data directory
 subj = []; % subject
 sess = []; % session date
 stime = []; % session time (leave empty for all session times)
@@ -23,7 +23,7 @@ end
 
 % load params.txt
 cd([ddir subj '/eeg.' reref]);
-fid = fopen(strcat('/mnt/sdb1/CCDT/eeg/', subj, '/eeg.noreref/params.txt'));
+fid = fopen(strcat(ddir, subj, '/eeg.noreref/params.txt'));
 C = textscan(fid,'%s %s');
 fclose(fid);
 if strcmp(C{1}{1},'samplerate')
@@ -46,7 +46,7 @@ else
 end
 
 % load jacksheet.txt
-fid = fopen(strcat('/mnt/sdb1/CCDT/eeg/', subj, '/eeg.noreref/jacksheet.txt'));
+fid = fopen(strcat(ddir, subj, '/eeg.noreref/jacksheet.txt'));
 J = textscan(fid,'%d %s');
 fclose(fid);
 uch = J{1}; % channel numbers in jacksheet
@@ -56,7 +56,7 @@ chnm = J{2}; % channel names in jacksheet
 if ~isempty(stime)
     fnm = dir([subj '_' sess '_' stime '*']);
 else
-    fnm = dir(['/mnt/sdb1/CCDT/eeg/' subj '/eeg.noreref/' subj '_' sess '*']);
+    fnm = dir([ddir subj '/eeg.noreref/' subj '_' sess '*']);
 end
 Nfile = length(fnm);
 chnum = []; stimes = [];
@@ -99,4 +99,3 @@ for ii = 1:Nst-1
     Nsamp = [Nsamp; size(datc{ii},1)]; % samples in each session time
 end
 dat = cat(1,datc{:}); % concatenate data from multiple session times if more than one
-
