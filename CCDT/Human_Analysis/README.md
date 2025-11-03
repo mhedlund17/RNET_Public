@@ -18,42 +18,8 @@ These steps are estimated to take approximately 10 minutes.
    cd Human_Analysis
    ```
    Or download the .zip file from GitHub and extract it.
-2. **Download demo dataset from OneDrive**  
-   Open MATLAB and run:
-   ```bash
-   %% === Download and Setup Dataset ===
-   % This script checks for a local dataset folder and downloads it from OneDrive if missing.
-
-   % Local setup
-   dataDir = 'dataset';  % name of the folder after extraction
-   zipFile = 'dataset.zip';  % temporary name for the downloaded zip
-   onedriveURL = 'https://office365stanford-my.sharepoint.com/:u:/g/personal/mhedlund_stanford_edu/ESNBj-ocG9hApub9VuBUd90Bb6DBwwopw7K6B5kXISemMA?e=eKF329';
-
-   % Check if dataset folder already exists
-   if ~exist(dataDir, 'dir')
-       fprintf('Dataset folder not found.\n');
-       fprintf('Downloading from OneDrive...\n');
-    
-       try
-           % Download the zip file
-           websave(zipFile, onedriveURL);
-           fprintf('Download complete.\n');
-        
-           % Extract contents
-           fprintf('Extracting dataset...\n');
-           unzip(zipFile, dataDir);
-           fprintf('Extraction complete.\n');
-        
-           % Clean up zip file
-           delete(zipFile);
-           fprintf('Cleaned up temporary files.\n');
-       catch ME
-           fprintf('Error downloading dataset:\n%s\n', ME.message);
-       end
-   else
-       fprintf('Dataset folder already exists. Skipping download.\n');
-   end
-   ```
+2. **Download demo dataset from Google Drive**  
+   Manually download the dataset with this URL: https://drive.google.com/uc?export=download&id=11e9hJd8AekxdcqgMp3ramicjCXZMltRt     
 4. **Add Project to MATLAB Path**  
    Open MATLAB and run:  
    ```bash
