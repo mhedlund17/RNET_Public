@@ -27,7 +27,7 @@ These steps are estimated to take approximately 10 minutes.
    % Local setup
    dataDir = 'dataset';  % name of the folder after extraction
    zipFile = 'dataset.zip';  % temporary name for the downloaded zip
-   onedriveURL = 'https://office365stanford-my.sharepoint.com/:u:/g/personal/mhedlund_stanford_edu/ESNBj-ocG9hApub9VuBUd90Bb6DBwwopw7K6B5kXISemMA?e=tkSyva';
+   onedriveURL = 'https://office365stanford-my.sharepoint.com/:u:/g/personal/mhedlund_stanford_edu/ESNBj-ocG9hApub9VuBUd90Bb6DBwwopw7K6B5kXISemMA?e=eKF329';
 
    % Check if dataset folder already exists
    if ~exist(dataDir, 'dir')
