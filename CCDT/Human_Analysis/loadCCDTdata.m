@@ -5,7 +5,7 @@ function [dat,Nsamp,fs,chn,chnm] = loadCCDTdata(varargin)
 %   DR 03/2020
 
 % parameters
-ddir = 'CCDT/eeg/'; % data directory
+ddir = []; % data directory
 subj = []; % subject
 sess = []; % session date
 stime = []; % session time (leave empty for all session times)
