@@ -11,7 +11,7 @@ function [dat,Nsamp,fs,uch,chnm] = loadData_natus(varargin)
 %   DR 10/2018
 
 % parameters
-ddir = '/sample_raw_data/'; % raw data directory
+ddir = [];%'\sample_raw_data\'; % raw data directory
 subj = []; % subject
 sess = []; % session date
 stime = []; % session time (leave empty for all session times)
@@ -21,9 +21,10 @@ if nargin
     v2struct(varargin{1});
 end
 
+% **make sure slashes in paths go in the right direction for your OS**
 % load params.txt
-cd([ddir subj '/eeg.' reref]);
-fid = fopen(strcat(ddir, subj, '/eeg.noreref/params.txt'));
+cd([ddir subj '\eeg.' reref]);
+fid = fopen(strcat(ddir, subj, '\eeg.noreref\params.txt'));
 C = textscan(fid,'%s %s');
 fclose(fid);
 if strcmp(C{1}{1},'samplerate')
