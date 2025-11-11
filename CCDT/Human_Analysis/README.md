@@ -133,11 +133,10 @@ run("CCDT_feature_select.m")
 % CCDT_feature_select.m), and define output directory and file name to save 
 % SVM performance results.
 
-thresholds = 0.05:0.05:1; % percentages as a decimal
+thresholds = 5:5:100; % percentages
 for X = thresholds
-    % Inside CCDT_Classifier.m: set percThresh = X
-    run("CCDT_Classifier.m")
-    % output: SVM performance (AUC) for threshold X
+    CCDT_Classifier(X)
+    % output: saves SVM performance (AUC) for threshold X
 end
 
 %% 4. Get details for selected features
