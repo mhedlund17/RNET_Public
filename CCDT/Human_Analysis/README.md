@@ -20,7 +20,8 @@ These steps are estimated to take approximately 10 minutes.
    ```
    Or download the .zip file from GitHub and extract it.
 2. **Download demo dataset from Google Drive**  
-   Manually download the dataset with this URL: https://drive.google.com/uc?export=download&id=11e9hJd8AekxdcqgMp3ramicjCXZMltRt     
+   Manually download the dataset with this URL: https://drive.google.com/uc?export=download&id=11e9hJd8AekxdcqgMp3ramicjCXZMltRt
+   Manually download additional helper files (too large to upload to GitHub) and add to the 'helper' folder: https://drive.google.com/uc?export=download&id=1JenyyYrOU7TEMkJszQdRJo-6j-jq8ubc
 4. **Add Project to MATLAB Path**  
    Open MATLAB and run:  
    ```bash
