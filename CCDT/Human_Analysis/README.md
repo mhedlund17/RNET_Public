@@ -7,7 +7,8 @@ Before running the MATLAB scripts, make sure you have:
 - **MATLAB R2022b** or later (recommended)  
 - The following MATLAB toolboxes installed:
   - Signal Processing Toolbox  
-  - Statistics and Machine Learning Toolbox  
+  - Statistics and Machine Learning Toolbox
+  - Image Processing Toolbox
   - (Optional) Parallel Computing Toolbox for faster processing
 
 ### Installation Steps
@@ -78,7 +79,7 @@ Will not be run independently — they are called within interactive files.
 
 ---
 ## Demo & Analysis instuctions
-Demo will go through full analysis using raw data from a single subject. This will take approximately 2 hours to run (tested on Windows 11, Intel Core i9-12900K, 2500MHz, 14Cores, 16GB RAM). 
+Demo will go through full analysis using raw data from a single subject. This will take approximately 30-60 minutes to run (tested on Windows 11, Intel Core i9-12900K, 2500MHz, 14Cores, 16GB RAM). 
 
 The demo can be expaneded to analyze the full dataset from FigShare. After downloading this dataset, simply change the raw data directories in `loadData_natus.m`, `CCDT_graph_features.m`, `CCDT_power_features.m`, and `CCDT_trPLV.m`. Then uncomment all lines in `CCDTdatabase.m` to include all subjects and task sessions in the analysis. 
 
@@ -179,7 +180,6 @@ run("CCDT_subregion_proportion_analysis.m")
 % Inside CCDT_trPLV.m: edit parameters (such as time period in trial, 
 % frequency bands, preprocessing options) and define output directory and 
 % file name to save data.
-
 run("CCDT_trPLV.m")
 % output: file saved with time-resolved PLV averaged over trials
 % corresponding to the following conditons:
@@ -188,9 +188,19 @@ run("CCDT_trPLV.m")
 %   3. All non-error trials
 %   4. Middle 1/3 of trials
 
-% repeat for each cue to calculate features in preparatory and anticipatory periods
+% Repeat for each cue to calculate features in preparatory and anticipatory periods
 
-%% 7. Time-resolved PLV Analysis
+%% 8. Time-resolved PLV Analysis
+% Plot and statistically compare time-resolved PLV for fast and slow trial conditions
+% for electrode pairs between any two anatomical or functional regions.
+
+% Inside CCDT_trplv_analysis.m: edit parameters (such as regions of interest)
+% and define input files/directories (time-resolved PLV data from step 7).
+run("CCDT_trplv_analysis.m")
+
+% Repeat for all pairs of interest. Adjust num_comp variable in connectivity tilt
+% section based on number of regions analyzed for appropriate multiple comparison
+% correction.
 
 ```
 
