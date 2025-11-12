@@ -1,13 +1,13 @@
 function [ccdt,fs] = parseCCDTevents(varargin)
 % function [ccdt,fs] = parseCCDTevents(varargin)
 %   Parse data from CCDT events file. Returns matrix:
-%   ccdt = trial x [1st cue indices, 2nd (go) cue indices, response indices, Delay Time (ms), Response Time (ms)]
+%   ccdt = trial x [cue indices, go indices, response indices, DT (ms), RT (ms)]
 %   fs = sampling rate
 %
 %   DR 10/2018
 
 % parameters
-ddir = '/home/brandon/Documents/CCDT Data/CCDT/events/'; % data directory
+ddir = []; % data directory
 subj = []; % subject
 sess = []; % session date
 stime = []; % session time
@@ -16,15 +16,15 @@ if nargin
 end
 
 % load events
-cd(ddir);
-load([subj '_events.mat'],'-mat');
+% cd(ddir);
+load([ddir 'events\' subj '_events.mat'],'-mat');
 eval(['evdata = events;']); clear events % built-in function called events
 N = length(evdata); % number of events
 
 % find sampling rate from params.txt (only needed if re-computing DT/RT)
-cd ..
-cd(['./eeg/' subj '/eeg.noreref']);
-fid = fopen('params.txt');
+% cd ..
+% cd([ddir 'eeg\' subj '\eeg.noreref']);
+fid = fopen([ddir 'eeg\' subj '\eeg.noreref\params.txt']);
 C = textscan(fid,'%s %s');
 fclose(fid);
 if strcmp(C{1}{1},'samplerate')
@@ -90,4 +90,3 @@ end
 if strcmp(subj,'HUP069')
     ccdt(42:45,:) = []; % recording blanked out for these 4 trials
 end
-

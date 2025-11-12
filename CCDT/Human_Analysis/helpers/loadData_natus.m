@@ -23,7 +23,7 @@ end
 
 % **make sure slashes in paths go in the right direction for your OS**
 % load params.txt
-cd([ddir subj '\eeg.' reref]);
+% cd([ddir subj '\eeg.' reref]);
 fid = fopen(strcat(ddir, subj, '\eeg.noreref\params.txt'));
 C = textscan(fid,'%s %s');
 fclose(fid);
@@ -47,7 +47,7 @@ else
 end
 
 % load jacksheet.txt
-fid = fopen(strcat(ddir, subj, '/eeg.noreref/jacksheet.txt'));
+fid = fopen(strcat(ddir, subj, '\eeg.noreref\jacksheet.txt'));
 J = textscan(fid,'%d %s');
 fclose(fid);
 uch = J{1}; % channel numbers in jacksheet
@@ -57,7 +57,7 @@ chnm = J{2}; % channel names in jacksheet
 if ~isempty(stime)
     fnm = dir([subj '_' sess '_' stime '*']);
 else
-    fnm = dir([ddir subj '/eeg.noreref/' subj '_' sess '*']);
+    fnm = dir([ddir subj '\eeg.noreref\' subj '_' sess '*']);
 end
 Nfile = length(fnm);
 chnum = []; stimes = [];
@@ -82,7 +82,7 @@ for ii = 1:Nfile
     ich = find(uch==str2double(cch));
     cst = cfnm(end-7:end-4); % session time
     ist = find(ustimes==str2double(cst));
-    foldnm = [fnm(ii).folder '/'];
+    foldnm = [fnm(ii).folder '\'];
     fid = fopen(cfnm,'r');
     cdat = fread(fid,inf,dform)*gain;
     fclose(fid);
