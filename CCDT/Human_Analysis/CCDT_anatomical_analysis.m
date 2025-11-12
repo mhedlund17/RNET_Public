@@ -9,15 +9,15 @@
 clear all
 
 % feature data info
-pdir = ''; % feature directory
-pfname = ''; % power feature file name
-gfname = ''; % graph communicability feature file name
+pdir = 'test_output\'; % feature directory
+pfname = 'power_features.mat'; % power feature file name
+gfname = 'graph_features.mat'; % graph communicability feature file name
 
 % load feature selection info
-sfeat_dir = ''; %feature selection directory
-sfeat_fname = ''; %feature selection file name - files saved in CCDT_feature_select.m
-sfeatInfo_dir = ''; %directory
-sfeatInfo_fname = ''; %file saved in CCDT_feature_details.m
+sfeat_dir = 'test_output\'; %feature selection directory
+sfeat_fname = 'feature_selection.mat'; %feature selection file name - files saved in CCDTanalyze section 1
+sfeatInfo_dir = 'test_output\'; %directory
+sfeatInfo_fname = 'feature_details.mat'; %file saved in 2nd section of CCDTanalyze
 load([sfeatInfo_dir sfeatInfo_fname])
 percThresh = 0.30; % percentage, as a decimal 
 % percent threshold: features with a significant regression slope in
@@ -29,8 +29,8 @@ percThresh = 0.30; % percentage, as a decimal
 %parameters for heatmap figure output
 addAsterisk = 1; %add asterisk to heatmap figure
 save_heatmap_data = 0; %save heatmap figure info
-savedir = ''; %output directory 
-savefname = ''; % output file name
+savedir = 'test_output\'; %output directory 
+savefname = 'anatomical_analysis_heatmap'; % output file name
 
 % get all ROI from EVE white matter atlas
 EVE_roi_csv = readtable('EVE_all_roi.csv');
@@ -128,7 +128,7 @@ for featureType = ["qexp", "pow"]
     all_T1_roi = [];
  
     % do basic localization of all nodes
-    for session = [1:27]
+    for session = [1:Nsubj]
         disp([char(featureType) ' Subject: ' num2str(session)])
        
         % get patient
@@ -140,7 +140,7 @@ for featureType = ["qexp", "pow"]
         
         % add these files to the github
         % Load electrode names & coordinates in MNI space from CSV file
-        elec_label_mni_raw = readtable(sprintf('CCDTmni/new_%s_localization.csv',patient));
+        elec_label_mni_raw = readtable(['CCDTmni\' sprintf('new_%s_localization.csv',patient)]);
         
         % extract channel labels
         ch_names = NFstruct(session).gchlbl; 
@@ -338,7 +338,8 @@ end
 % selected features in each anatomical region
 
 seg_counts_nonsig = NaN*zeros(27,8);
-patient_vec = [1:27];
+% patient_vec = [1:27];
+patient_vec = [1:Nsubj];
 
 for r = 1:8
     which_subregions = all_sub_roi(r).data;
@@ -625,9 +626,12 @@ for metric = 1:2 % do for qexp and pow
             sig_slopes{z,r} = seg_EVE_roi(r).data;
             nonsig_slopes{z,r} = all_non_sig_struct(z).data;
         end
+        if ~isempty(all_vals_sig(z).seg)
         all_pval_gm(z) = ranksum(all_vals_sig(z).seg,all_non_sig_struct(z).data);
+        end
+        if ~isempty(all_vals_sig(z).wm)
         all_pval_wm(z) = ranksum(all_vals_sig(z).wm,all_non_sig_struct(z).data);
-            
+        end
         % scatter plot figure for comparing nonselected features to
         % selected features in each anatomical region
         figure(z);clf
@@ -695,7 +699,8 @@ end
 close all
 addAsterisk = 1;
 
-load color_bar.mat
+% load color_bar.mat
+load('color_bar_white0.mat'); color_bar = color_bar_white0; clear color_bar_white0
 fband_labs = {'{\theta}/{\alpha}','\beta','L_{\gamma}','H_{\gamma}'};
 plot_x_label = {'Frontal','Tmp-parietal','Paralimbic',...
                 'Thal.-cortical','Frontal Assoc.','Tmp.Assoc.',...
@@ -743,7 +748,7 @@ yticklabels(fband_labs)
 xticklabels(region_labs)
 xtickangle(-30)
 colorbar;
-colormap(flip(color_bar));
+colormap(gcf,flip(color_bar));
 clim([-200,200])
 
 a2 = subplot(1,2,2);
@@ -821,6 +826,7 @@ region_labels = {'FrGM','TPGM','PLGM','TCWM','FAWM','TAWM','PLWM','ComWM'};
 
 % plot subregions in different colors - get subregion labels
 % gm & wm ROIs
+EVE_roi_WM_csv = readtable('EVE_regions_WM.csv');
 EVE_roi_WM_csv = EVE_roi_WM_csv{:,2};
 EVE_roi_WM_csv{end+1} = 'n/a';
 seg_ID_list = [frontal_cortex,temporoparietal_cortex,paralimbic_GM,'n/a'];
@@ -903,11 +909,7 @@ for i = 1:numSubs+1 %subregion
     xlim([0,xtick_vals(i)+1])
     xticks(xtick_vals)
     xticklabels(subregion_labels)
-    if blackBackground
-        yline(0,'w','LineStyle','--',"LineWidth",1.5)
-    else
-        yline(0,'k','LineStyle','--',"LineWidth",1.5)
-    end
+    yline(0,'k','LineStyle','--',"LineWidth",1.5)
     if ~isempty(y)
         p(1,i) = signrank(y,0);
         if p(1,i) < 0.001

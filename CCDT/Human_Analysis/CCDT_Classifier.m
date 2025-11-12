@@ -1,27 +1,28 @@
-% CCDT_Classifier
+function CCDT_Classifier(thresh)
 % SVM classifier to predict if a trial is fast or slow
 %   VB 03/2020
 %   MH 08/2023 
-clear; close all; clc
 warning off
 
 %load features & basic info
-pdir = ''; % feature directory
-pfname = ''; % power feature file name
-gfname = ''; % graph communicability feature file name
+pdir = 'test_output\'; % feature directory
+pfname = 'power_features.mat'; % power feature file name
+gfname = 'graph_features.mat'; % graph communicability feature file name
 db = CCDTdatabase;
 Nsubj = height(db);
 fbands = [3 12; 12 30; 30 55; 70 110]; 
 
 % load feature selection info
-sfeat_dir = ''; %feature selection directory
-sfeat_fname = ''; %feature selection file name - files saved in CCDTanalyze section 1
+sfeat_dir = 'test_output\'; %feature selection directory
+sfeat_fname = 'feature_selection.mat'; %feature selection file name - files saved in CCDTanalyze section 1
 
 % save option, plot option, parameters
-saveon = 0; %save output
 doROCPlot=0; %plots ROC
 kfold=5; %for cross validation
-percThresh = .3; %percentage, as a decimal
+percThresh = thresh/100; %percentage, as a decimal
+saveon = 1; %save output
+svdir = 'test_output\';
+svnm = ['classifier_output_thresh' num2str(thresh)];
 
 % load processed data
 load([pdir pfname],"NFstruct"); 

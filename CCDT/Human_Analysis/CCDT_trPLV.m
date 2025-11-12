@@ -10,17 +10,17 @@
 clc; clear; close all 
 
 % parameters
-odir = ''; % output directory
-svnm = ''; %name of output file
+odir = 'test_output\'; % output directory
+svnm = 'trPLV_data'; %name of output file
 iev = 1; % event (1 = trial start cue, 2 = go cue, 3 = response)
 win = [-850, 600]; % perievent window (ms) 
 fbands = [3 12; 12 30; 30 55; 70 110]; % frequency band ranges (Hz)
-p.ddir = '/sample_raw_data/'; % raw data directory
+p.ddir = 'sample_raw_data\'; % raw data directory
 p.subj = []; % subject (leave empty to batch process all subjects in database)
 p.sess = []; % session date (leave empty to choose automatically)
 p.stime = []; % session time (leave empty for all session times)
 stsubj = 1; % start subject
-saveon=0; %save features
+saveon=1; %save features
 
 % load database
 db = CCDTdatabase;
@@ -47,9 +47,8 @@ behavStruct = struct;
 
 for isubj = stsubj:Nsubj
     disp([num2str(isubj) '/' num2str(Nsubj)]);
-    p.subj = db{isubj,1}; q.subj = p.subj;
-    p.sess = db{isubj,2}; q.sess = p.sess;
-    q.ddir = [p.ddir(1:end-4) 'events\'];
+    p.subj = db{isubj,1}; 
+    p.sess = db{isubj,2};
     % load data
     [dat,Nsamp,fs,gch, gchlbl] = loadCCDTdata(p);
 
@@ -80,7 +79,7 @@ for isubj = stsubj:Nsubj
     Nch = size(dat,2);
     
     % load task events
-    ccdt = parseCCDTevents(q);
+    ccdt = parseCCDTevents(p);
     if ~isempty(Nsamp) && iscell(ccdt)
         nccdt = ccdt{1};
         disp(['Concatenating within-day multisession'])
@@ -104,6 +103,7 @@ for isubj = stsubj:Nsubj
     swin = round(win(1)/1000*fs):round(win(2)/1000*fs);
     Nsamp = length(swin); % # samples in window
     indmat = ccdt(:,iev)*ones(1,Nsamp) + ones(Ntrl,1)*swin; % matrix of indices for all trial windows
+    timeaxis = linspace(win(1),win(2),Nsamp);
 
     % flag trials with bad RTs
     inr = (RT<0 | RT>999); % incorrect responses, logical index    
@@ -166,7 +166,6 @@ for isubj = stsubj:Nsubj
     behavStruct.subj = db{isubj,1};
     behavStruct.sess = db{isubj,2};
     behavStruct.vRT = RT;
-    behavStruct.vDT = DT;
     behavStruct.ifast = iF;
     behavStruct.islow = iS;
     behavStruct.error = inr;

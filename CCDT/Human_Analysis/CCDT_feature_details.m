@@ -15,21 +15,21 @@
 % chosen by evaluating SVM performance in predicting fast vs slow trials
 % for 20 thresholds between 0 and 100%. 
 percThresh = .3; % percentage, as a decimal
-savedir = ''; %output directory
-savefname = ''; %output file name
+savedir = 'test_output\'; %output directory
+savefname = 'feature_details'; %output file name
 db = CCDTdatabase;
 fbands = [3 12; 12 30; 30 55; 70 110]; 
 Nsubj = size(db,1); Nbands = size(fbands,1)+1; Nfreq = height(fbands);
 
 % load feature selection stats
-fselect_dir = ''; % directory with feature selection file
-fselect_fname = ''; % feature selection file name
+fselect_dir = 'test_output\'; % directory with feature selection file
+fselect_fname = 'feature_selection.mat'; % feature selection file name
 load([fselect_dir fselect_fname],"sigPow","sigCom");
 
 % load NFstruct for feature data and behavStruct for RT info
-pdir = ''; % feature directory
-pfname = ''; % power feature file name 
-gfname = ''; % graph communicability feature file name
+pdir = 'test_output\'; % feature directory
+pfname = 'power_features.mat'; % power feature file name 
+gfname = 'graph_features.mat'; % graph communicability feature file name
 load([pdir pfname],"NFstruct"); 
 NFstructP = NFstruct;
 load([pdir gfname],"NFstruct","behavStruct");
@@ -49,6 +49,9 @@ fQv = []; sQv = []; %fast and slow communicability features
 aPv = []; aQv = []; %all power and communicability features
 fIDq = []; ssIDq = []; %frequency band of communicability features
 gchP = []; gchQ = []; %channel labels of power and communicability features
+avgQ_allFeats = []; avgP_allFeats = [];
+fIDp_allFeats = []; ssIDp_allFeats = []; gchP_allFeats = [];
+fIDq_allFeats = []; ssIDq_allFeats = []; gchQ_allFeats = [];
 for isubj = 1:Nsubj
     disp(['Subject: ' num2str(isubj)])
 
@@ -58,15 +61,14 @@ for isubj = 1:Nsubj
     iS = behavStruct(isubj).islow;
 
     %get features for current subject
+    for j = 1:4 %fbands, reformat features for current subject
+        nComDat(:,:,j) = NFstructQ(isubj).fbands(j).NFqexp_nodal;
+        nPowDat(:,:,j) = NFstructP(isubj).fbands(j).NFpow;
+    end
     sigFeatP = sigNodesPow{isubj}; %nElec x nFreq
     sigFeatQ = sigNodesCom{isubj};
     nTrl = size(nPowDat,2);
     nFreq = size(nPowDat,3);
-
-    for j = 1:nFreq %fbands, reformat features for current subject
-        nComDat(:,:,j) = NFstructQ(isubj).fbands(j).NFqexp_nodal;
-        nPowDat(:,:,j) = NFstructP(isubj).fbands(j).NFpow;
-    end
 
     %get selected features
     for i = 1:nFreq
@@ -92,10 +94,22 @@ for isubj = 1:Nsubj
             ssIDq = vertcat(ssIDq,isubj*ones(height(sigComFeaturesZ),1)); % subject ID
             gchQ = vertcat(gchQ,NFstructQ(isubj).gchlbl(sigFeatQ(:,i))); % channel label
         end
+
+        %save avg value for all features - not just selected, used in intrinsic Qexp value analysis
+        avgQ_allFeats = vertcat(avgQ_allFeats,mean(comFeaturesZ(:,:),2)); %average over all trials, selected & nonselected chs
+        fIDq_allFeats = vertcat(fIDq_allFeats,i*ones(height(comFeaturesZ),1));
+        ssIDq_allFeats = vertcat(ssIDq_allFeats,isubj*ones(height(comFeaturesZ),1));
+        gchQ_allFeats = vertcat(gchQ_allFeats,NFstructQ(isubj).gchlbl);
+
+        avgP_allFeats = vertcat(avgP_allFeats,mean(powFeaturesZ(:,:),2)); %average over all trials, selected & nonselected chs
+        fIDp_allFeats = vertcat(fIDp_allFeats,i*ones(height(powFeaturesZ),1));
+        ssIDp_allFeats = vertcat(ssIDp_allFeats,isubj*ones(height(powFeaturesZ),1));
+        gchP_allFeats = vertcat(gchP_allFeats,NFstructP(isubj).gchlbl);
     end
     clear nComDat nPowDat
 end
 
 % save details about selected features
 
-save([savedir savefname],'fPv','sPv','fIDp','ssIDp','gchP','fQv','sQv','aQv','aPv','fIDq','ssIDq','gchQ')
+save([savedir savefname],'fPv','sPv','fIDp','ssIDp','gchP','fQv','sQv','aQv','aPv','fIDq','ssIDq','gchQ',...
+    'avgP_allFeats','avgQ_allFeats','fIDp_allFeats','fIDq_allFeats','ssIDp_allFeats','ssIDq_allFeats','gchP_allFeats','gchQ_allFeats')

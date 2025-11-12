@@ -2,7 +2,8 @@
 
 % set up
 featType = 1; % =0 for qexp & pow, =1 for qexp, =2 for pow
-load("feature_detail_file.mat") %load file saved in CCDT_feature_details.m (with ssID and gch variables)
+ddir = 'test_output\'; % directory to feature details data  
+load([ddir 'feature_details.mat']) %load file saved in 2nd section of CCDT_feature_details (with ssID and gch variables)
 load patient_loc_120623 %anatomical localizations
 db = CCDTdatabase; %subject database
 Nsubj = height(db);
@@ -189,5 +190,3 @@ ylabel('% of TCWM Nodes from Subregion')
 legend('preparatory','anticipatory')
 xlim([0.5,6.5])
 scatter([1,4],[47,47],'*','k')
-
-

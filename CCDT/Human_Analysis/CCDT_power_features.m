@@ -3,15 +3,14 @@ function CCDT_power_features
 %   perievent window. Generally follows analysis of Manning et al 2009.
 %
 %   DR 10/2019 & VB 5/2020 & MH 9/2024
-
 % parameters
-odir = ''; % output directory
-svnm = ''; %name of output file
+odir = 'test_output\'; % output directory
+svnm = 'power_features'; %name of output file
 iev = 1; % event (1 = trial start cue, 2 = go cue, 3 = response)
 win = [-500 0]; % perievent window (ms)
 shiftDat = 0; %1 = create randomly shifted null data, 0= use regular data
 fbands = [3 12; 12 30; 30 55; 70 110]; % frequency band ranges (Hz)
-p.ddir = '/sample_raw_data/'; % raw data directory
+p.ddir = 'sample_raw_data\'; % raw data directory
 p.subj = []; % subject (leave empty to batch process all subjects in database)
 p.sess = []; % session date (leave empty to choose automatically)
 p.stime = []; % session time (leave empty for all session times)
@@ -39,21 +38,19 @@ NFstruct = struct;
 
 for isubj = stsubj:Nsubj
     disp([num2str(isubj) '/' num2str(Nsubj)]);
-    p.subj = db{isubj,1}; q.subj = p.subj;
-    p.sess = db{isubj,2}; q.sess = p.sess;
-    q.ddir = [p.ddir(1:end-4) 'events/'];
+    p.subj = db{isubj,1}; p.sess = db{isubj,2}; 
     
     % load data
     [dat,Nsamp,fs,chn, gchlbl] = loadCCDTdata(p);
 
     % check contact labels to make sure they align w/ patient_loc file
-    if length(gchlbl) == length(patient_loc(p.rrf).session(isubj).names)
+    if length(gchlbl) == length(patient_loc(1).session(isubj).names)
         disp("gchs # = # chs in patient loc file")
     else
         disp("# gchs NOT the same as patient loc file")
-        for ichlb = 1:length(patient_loc(p.rrf).session(isubj).names)
-            for ichar = 1: length(patient_loc(p.rrf).session(isubj).names{ichlb})
-                if gchlbl{ichlb}(ichar)~=patient_loc(p.rrf).session(isubj).names{ichlb}(ichar)
+        for ichlb = 1:length(patient_loc(1).session(isubj).names)
+            for ichar = 1: length(patient_loc(1).session(isubj).names{ichlb})
+                if gchlbl{ichlb}(ichar)~=patient_loc(1).session(isubj).names{ichlb}(ichar)
                     disp(['char mismatch in ch ' num2str(ichlb) '. channel removed.'])
                     gchlbl(ichlb) = [];
                     chn(ichlb) = [];
@@ -61,7 +58,7 @@ for isubj = stsubj:Nsubj
                 end
             end
         end
-        if length(gchlbl) == length(patient_loc(p.rrf).session(isubj).names)
+        if length(gchlbl) == length(patient_loc(1).session(isubj).names)
             disp("gchs # = # chs in patient loc file")
         end
     end
@@ -82,7 +79,7 @@ for isubj = stsubj:Nsubj
     
     
     % load task events
-    ccdt = parseCCDTevents(q);
+    ccdt = parseCCDTevents(p);
     if ~isempty(Nsamp) && iscell(ccdt)
         nccdt = ccdt{1};
         disp(['Concatenating within-day multisession'])
@@ -163,6 +160,4 @@ end
 if saveon
     save([odir svnm,'.mat'],'LT*','NFstruct')
 end
-
-
 end

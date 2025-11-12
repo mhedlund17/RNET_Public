@@ -40,10 +40,9 @@ stsubj = 1; %start subject
 
 db = CCDTdatabase;
 Nsubj = height(db);
-ddir = ''; % directory to time-resolved PLV data with 
+ddir = 'test_output\'; % directory to time-resolved PLV data 
 load patient_loc_MH_071025.mat %anatomical info
 fbandlabels = {'Theta/Alpha', 'Beta', 'Low Gamma', 'High Gamma'};
-% load([extractBefore(ddir,'iev') 'AllSubj' regPref '_pairs.mat'])
 plotSingSubj = 0;
 plotMultiSubj = 1;
 
