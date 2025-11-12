@@ -1,0 +1,1 @@
+These folders contains scripts used in analysis for the paper titled *Subconscious thalamoprefrontal circuit engagement enables dynamic mental preparation across species*. Please see README files in Human_Analysis and Mouse_Analysis folders for installation and demo execution instructions.
