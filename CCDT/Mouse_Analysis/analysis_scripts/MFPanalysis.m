@@ -494,6 +494,7 @@ text(1, diff1 + sem1 + 0.02, sprintf('p = %.3g', pJ1), 'HorizontalAlignment','ce
 text(2, diff2 + sem2 + 0.02, sprintf('p = %.3g', pJ2), 'HorizontalAlignment','center');
 box off; hold off;
 
+
 %% =================== Figure 4K ===================
 % Need to load 100ms Data for this panel
 % Define variables
@@ -635,6 +636,184 @@ ylabel('Δ Mean z (Fast − Slow)'); title('Fast vs Slow (Successes)');
 text(1, diff1 + sem1 + 0.02, sprintf('p = %.3g', pJ1), 'HorizontalAlignment','center');
 text(2, diff2 + sem2 + 0.02, sprintf('p = %.3g', pJ2), 'HorizontalAlignment','center');
 ylim([-0.1 0.2]); box off; hold off;
+
+
+%% ---------- Empirical CDFs + KS test - subplot h ----------
+% Fast vs slow RT masks
+fastestStart = 0;
+fastestEnd   = 0.02;   % 0–20 ms
+slowestStart = fastestEnd;
+slowestEnd   = 0.5;    % 20–500 ms
+
+fastMask = (combinedRTToneSuccessful >= fastestStart) & ...
+           (combinedRTToneSuccessful <  fastestEnd);
+slowMask = (combinedRTToneSuccessful >= slowestStart) & ...
+           (combinedRTToneSuccessful <= slowestEnd);
+
+% Preparatory window indices
+idxPrep = (psthTime >= -2) & (psthTime < 0);   % same as timeWindow1
+
+% Extract PSTHs for Fiber 1
+zFast_prep = combinedPsthSuccessMatrix(fastMask, idxPrep, 1);  % [nFast x nTimePrep]
+zSlow_prep = combinedPsthSuccessMatrix(slowMask, idxPrep, 1);  % [nSlow x nTimePrep]
+
+% Per-trial mean z in prep window
+fastMeans_prep = squeeze(mean(zFast_prep, 2));
+slowMeans_prep = squeeze(mean(zSlow_prep, 2));
+
+% Drop any NaNs
+fastMeans_prep = fastMeans_prep(~isnan(fastMeans_prep));
+slowMeans_prep = slowMeans_prep(~isnan(slowMeans_prep));
+
+[fastF, fastX] = ecdf(fastMeans_prep);
+[slowF, slowX] = ecdf(slowMeans_prep);
+
+% Two-sample KS test
+[~, pKS, ksStat] = kstest2(fastMeans_prep, slowMeans_prep);
+
+figure('Name','Prep CDFs — Fast vs Slow RT');
+plot(fastX, fastF, 'b-', 'LineWidth',1.5); hold on;
+plot(slowX, slowF, 'r-', 'LineWidth',1.5);
+xlabel('Per-trial mean z (prep, -2 to 0 s)');
+ylabel('Cumulative probability');
+title(sprintf('Prep CDFs (KS D = %.3f, p = %.4f)', ksStat, pKS));
+legend({'Fast RTs (0–20 ms)','Slow RTs (20–500 ms)'}, 'Location','best');
+grid on; box off; hold off;
+
+%% ===================== quintile analysis - subplot i ==========================
+timeWindow1 = (psthTime >= -2) & (psthTime < 0);
+% Prep activity (fiber 1) and RTs must be aligned trial-by-trial
+prepIdx = timeWindow1;   % -4 to 0 s
+RTs     = combinedRTToneSuccessful(:);
+
+% Per-trial mean preparatory z (fiber 1)
+prepMeans = squeeze(mean(combinedPsthSuccessMatrix(:, prepIdx, 1), 2));  % [nTrials x 1]
+
+% Sort trials by preparatory activity
+[prepSorted, sortIdxPrep] = sort(prepMeans, 'ascend');
+nTrials   = numel(prepMeans);
+nGroups  = 5;
+edges     = round(linspace(0, nTrials, nGroups+1));   % indices in sorted space
+
+fastThresh = 0.02;   % RT ≤ 20 ms (seconds)
+
+pUltraFast_dec   = nan(1, nGroups);
+nFast_dec        = nan(1, nGroups);
+nTotal_dec       = nan(1, nGroups);
+
+for d = 1:nGroups
+    iStart = edges(d)   + 1;
+    iEnd   = edges(d+1);
+    theseSortedIdx = iStart:iEnd;
+    
+    trialIdx = sortIdxPrep(theseSortedIdx);   % back to original trial indices
+    theseRTs = RTs(trialIdx);
+    
+    nTotal_dec(d) = numel(theseRTs);
+    nFast_dec(d)  = sum(theseRTs <= fastThresh);
+    pUltraFast_dec(d) = nFast_dec(d) / max(1, nTotal_dec(d));
+end
+
+% Fisher exact test: top quintile vs all others (2x2 table)
+fastTop   = nFast_dec(end);
+slowTop   = nTotal_dec(end) - nFast_dec(end);
+fastOther = sum(nFast_dec(1:end-1));
+slowOther = sum(nTotal_dec(1:end-1)) - fastOther;
+
+tbl_dec = [fastOther slowOther; fastTop slowTop];
+[~, pFisher_dec] = fishertest(tbl_dec);
+
+% --------- Plot: ultra-fast probability vs preparatory quintile ---------
+figure('Name','Ultra-fast probability vs prep-z quintile');
+
+bar(1:nGroups, pUltraFast_dec, 'FaceColor','w', 'EdgeColor','k', 'LineWidth',1.5); hold on;
+plot(1:nGroups, pUltraFast_dec, 'k.-', 'LineWidth',1.5, 'MarkerSize',18);
+
+set(gca, 'XTick', 1:nGroups, ...
+         'XTickLabel', {'Q1','Q2','Q3','Q4','Q5'});
+xlabel('Preparatory activity quintile (Q1 = lowest z, Q5 = highest z)');
+ylabel('P(RT \leq 20 ms)');
+title(sprintf('Ultra-fast probability vs prep-z quintile (Fisher top vs rest p = %.4f)', pFisher_dec));
+
+box off; hold off;
+
+%% ---------- Logistic regression: P(RT <= 20 ms) vs prep mean z with 95% CI - subplot j ----------
+
+% Combine fast and slow into one vector
+prep_all   = [fastMeans_prep; slowMeans_prep];
+isFast_all = [ones(size(fastMeans_prep)); zeros(size(slowMeans_prep))];  % 1 = fast, 0 = slow
+
+% Fit logistic regression: logit(P(fast)) = b0 + b1 * prep_z
+[b, ~, stats] = glmfit(prep_all, isFast_all, 'binomial', 'link', 'logit');
+pSlope = stats.p(2);
+b1     = b(2);
+
+% Smooth prediction across z-range
+zGrid = linspace(min(prep_all), max(prep_all), 200)';
+
+% Predicted probability
+pPred = glmval(b, zGrid, 'logit');
+
+% 95% CI for fitted logistic curve
+Xg = [ones(size(zGrid)) zGrid];
+eta = Xg * b;
+seEta = sqrt(sum((Xg * stats.covb) .* Xg, 2));
+zCrit = 1.96;
+
+etaLo = eta - zCrit * seEta;
+etaHi = eta + zCrit * seEta;
+
+pLo = 1 ./ (1 + exp(-etaLo));
+pHi = 1 ./ (1 + exp(-etaHi));
+
+% Empirical probabilities in z-bins
+nBins = 15;
+edges = linspace(min(prep_all), max(prep_all), nBins+1);
+binCenters = 0.5 * (edges(1:end-1) + edges(2:end));
+
+empP     = nan(1, nBins);
+binCount = zeros(1, nBins);
+
+for i = 1:nBins
+    if i < nBins
+        inBin = prep_all >= edges(i) & prep_all < edges(i+1);
+    else
+        inBin = prep_all >= edges(i) & prep_all <= edges(i+1); % include max in last bin
+    end
+    
+    n = sum(inBin);
+    if n > 0
+        empP(i) = mean(isFast_all(inBin));
+        binCount(i) = n;
+    end
+end
+
+% Optional: show only bins with at least 10 observations
+minN = 10;
+keepBins = binCount >= minN;
+
+%Plot
+figure('Name', 'Logistic: P(ultra-fast) vs prep z with model 95% CI');
+hold on;
+
+% Shaded 95% CI band for logistic fit
+fill([zGrid; flipud(zGrid)], [pLo; flipud(pHi)], [0.85 0.85 0.85], ...
+    'EdgeColor', 'none', 'FaceAlpha', 0.8);
+
+% Logistic fit
+plot(zGrid, pPred, 'k-', 'LineWidth', 2);
+
+% Empirical bin probabilities (no point CIs)
+plot(binCenters(keepBins), empP(keepBins), 'ko', ...
+    'MarkerFaceColor', 'k', 'MarkerSize', 6);
+
+xlabel('Prep mean z (−4 to 0 s)');
+ylabel('P(RT ≤ 20 ms)');
+title(sprintf('P(ultra-fast RT) vs prep z (logistic slope p = %.3g)', pSlope));
+grid on;
+box off;
+hold off;
+
 
 %% =========================================================
 %% ================Supplemental Figure S8===================
